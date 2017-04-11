@@ -36,8 +36,6 @@
                     });
                 });
 
-                $scope.publisherMode = CONFIG.APP.PUBLISHER_MODE;
-
                 var checkStatus = function() {
                     statusHelper.checkStatus().then(function (result) {
                         if (result.maintenanceModeEnabled) {
@@ -60,15 +58,7 @@
 
                 $scope.toasts = toastService.toasts;
 
-                $scope.togglePublisher = function () {
-                    $scope.publisherMode = !$scope.publisherMode;
-                    setHeader();
-                };
-
-                var setHeader = function () {
-                    $scope.header = 'ACPAAS - API ' + ($scope.publisherMode ? 'Publisher' : 'Store');
-                };
-                setHeader();
+                $scope.header = 'ACPAAS - API Publisher';
 
                 $scope.navFull = false;
 
@@ -185,7 +175,6 @@
 
                 function init() {
                     $scope.loggedIn = loginHelper.checkLoggedIn();
-                    $scope.title = CONFIG.APP.PUBLISHER_MODE ? 'API Publisher' : 'API Store';
 
                     checkIsEmailPresent();
                     checkFirstVisit();
@@ -227,33 +216,11 @@
                 }
 
                 function checkFirstVisit() {
-                    if (!$scope.loggedIn && !$scope.publisherMode && !loginHelper.checkIsFirstVisit()) {
-                        console.log('first visit!');
 
-                        $uibModal.open({
-                            templateUrl: 'views/modals/firstVisit.html',
-                            size: 'lg',
-                            controller: 'FirstVisitCtrl',
-                            backdrop: 'static',
-                            keyboard: false,
-                            resolve: {
-                                currentInfo: function() {
-                                    return $scope.User.currentUser;
-                                }
-                            },
-                            windowClass: $scope.modalAnim	// Animation Class put here.
-                        });
-                    }
                 }
 
                 function checkNeedsPopover() {
-                    if ($scope.loggedIn && !$scope.publisherMode) {
-                        currentUser.checkStatus().then(function (status) {
-                            $scope.status = status;
-                            if (!$scope.status.hasOrg && !$localStorage.orgPopupSeen) controller.orgPopoverOpen = true;
-                            if ($scope.status.hasOrg && !$scope.status.hasApp && !$localStorage.appPopupSeen) controller.appPopoverOpen = true;
-                        });
-                    }
+
                 }
 
                 function clearNotification(notification) {
@@ -388,8 +355,7 @@
                     if ($scope.secondsRemaining > 0) {
                         countDownSecond();
                     } else {
-                        if ($scope.publisherMode) $state.go('root.myOrganizations');
-                        else $state.go('root.apis.grid');
+                        $state.go('root.myOrganizations');
                     }
                 }, 1000);
             }

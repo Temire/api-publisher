@@ -496,8 +496,7 @@
                 scope: {
                     currentUser: '=',
                     tickets: '=',
-                    serviceVersion: '=',
-                    publisherMode: '='
+                    serviceVersion: '='
                 },
                 controller:
                     function ($scope, $uibModal, loginHelper) {
@@ -525,7 +524,6 @@
                 restrict: 'E',
                 scope: {
                     ticket: '=',
-                    publisherMode: '=',
                     currentUser: '=',
                     serviceVersion: '='
                 },
@@ -554,7 +552,6 @@
                                     currentUser: $scope.currentUser,
                                     ticket: $scope.ticket,
                                     user: $scope.user,
-                                    publisherMode: $scope.publisherMode,
                                     serviceVersion: $scope.serviceVersion
                                 },
                                 backdrop : 'static',
@@ -571,7 +568,6 @@
                 scope: {
                     comments: '=',
                     currentUser: '=',
-                    publisherMode: '=',
                     serviceVersion: '='
                 },
                 controller:
@@ -633,8 +629,7 @@
                 restrict: 'E',
                 require: '^commentList',
                 scope: {
-                    comment: '=',
-                    publisherMode: '='
+                    comment: '='
                 },
                 link: function ($scope, iElement, iAttrs, commentListCtrl) {
                     $scope.deleteComment = function (comment) {

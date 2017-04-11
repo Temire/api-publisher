@@ -30,15 +30,11 @@
                 let error = $location.search().errorcode;
                 let msg = $location.search().errormessage;
                 if (error === LOGIN_ERROR_CODE) {
-                    if (CONFIG.APP.PUBLISHER_MODE) {
-                        transitionToError = true;
-                        $state.get('root.maintenance').error = angular.copy(msg);
-                        $state.go('root.maintenance').then(function () {
-                            transitionToError = false;
-                        });
-                    } else {
-                        errorHelper.showLoginErrorModal(error, msg);
-                    }
+                    transitionToError = true;
+                    $state.get('root.maintenance').error = angular.copy(msg);
+                    $state.go('root.maintenance').then(function () {
+                        transitionToError = false;
+                    });
                 }
                 $location.search('errormessage', null);
                 $location.search('errorcode', null);

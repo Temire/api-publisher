@@ -9,8 +9,7 @@
         return {
             restrict: 'E',
             scope: {
-                orgs: '=',
-                publisherMode: '='
+                orgs: '='
             },
             templateUrl: 'views/templates/organization/organizations-table.html',
             controller: function ($scope, $uibModal, memberService, toastService) {

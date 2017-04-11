@@ -16,9 +16,9 @@
     </div>
     <div class="right" ng-if="!editMode">
         <button class="btn btn-default btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Edit issue" ng-click="editIssue()" ng-if="isOwnIssue() || isServiceOwner()"><i class="fa fa-pencil"></i>Edit</button>
-        <button class="btn btn-line-warning btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Close issue" ng-click="closeIssue()" ng-if="ticket.status === 'OPEN' && (publisherMode || isServiceOwner())"><i class="fa fa-lock"></i>Close</button>
-        <button class="btn btn-line-warning btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Reopen issue" ng-click="reOpenIssue()" ng-if="ticket.status === 'CLOSED' && (publisherMode || isServiceOwner())"><i class="fa fa-folder-open"></i>Reopen</button>
-        <button class="btn btn-line-danger btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Delete issue" ng-click="deleteIssue()" ng-if="publisherMode || isServiceOwner()"><i class="fa fa-ban"></i>Delete</button>
+        <button class="btn btn-line-warning btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Close issue" ng-click="closeIssue()" ng-if="ticket.status === 'OPEN'"><i class="fa fa-lock"></i>Close</button>
+        <button class="btn btn-line-warning btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Reopen issue" ng-click="reOpenIssue()" ng-if="ticket.status === 'CLOSED'"><i class="fa fa-folder-open"></i>Reopen</button>
+        <button class="btn btn-line-danger btn-xs" tooltip-popup-delay="300" tooltip-placement="top" uib-tooltip="Delete issue" ng-click="deleteIssue()"><i class="fa fa-ban"></i>Delete</button>
     </div>
 
     <div class="ml10 mr10" ng-if="editMode">
@@ -42,7 +42,7 @@
     </div>
 </div>
 <div class="modal-body">
-    <comment-list service-version="serviceVersion" comments="comments" current-user="currentUser" publisher-mode="publisherMode"></comment-list>
+    <comment-list service-version="serviceVersion" comments="comments" current-user="currentUser"></comment-list>
 </div>
 <div class="modal-footer">
     <div class="col-sm-10 col-sm-offset-1">

@@ -45,7 +45,7 @@
         }
     }
 
-    function myOrganizationsCtrl($scope, $stateParams, $uibModal, filterFilter, appOrgData, svcOrgData, toastService, headerModel) {
+    function myOrganizationsCtrl($scope, $stateParams, $uibModal, filterFilter, svcOrgData, toastService, headerModel) {
 
         $scope.toasts = toastService.toasts;
         $scope.toastService = toastService;
@@ -56,11 +56,7 @@
         function init() {
             headerModel.setIsButtonVisible(false, false, false);
 
-            if ($scope.publisherMode) {
-                $scope.orgs = svcOrgData;
-            } else {
-                $scope.orgs = appOrgData;
-            }
+            $scope.orgs = svcOrgData;
             $scope.orgs.forEach(function (org) {
                 org.isMember = true;
             });
@@ -80,9 +76,6 @@
                 size: 'lg',
                 controller: 'NewOrganizationCtrl as ctrl',
                 resolve: {
-                    publisherMode: function () {
-                        return $scope.publisherMode;
-                    },
                     admin: function () {
                         return $scope.User.currentUser.admin
                     }
@@ -102,11 +95,7 @@
         init();
 
         function init() {
-            if ($scope.publisherMode) {
-                $scope.memberOrgs = svcOrgData;
-            } else {
-                $scope.memberOrgs = appOrgData;
-            }
+            $scope.memberOrgs = svcOrgData;
             $scope.pendingOrgs = pendingOrgs;
             $scope.orgs = processResults(orgs.beans);
             $scope.totalOrgs = orgs.totalSize;
@@ -306,11 +295,10 @@
         }
     }
 
-    function orgDeleteCtrl($scope, $uibModalInstance, org, CONFIG) {
+    function orgDeleteCtrl($scope, $uibModalInstance, org) {
         $scope.cancel = cancel;
         $scope.ok = ok;
         $scope.org = org;
-        $scope.publisherMode = CONFIG.APP.PUBLISHER_MODE;
 
         function cancel() {
             $uibModalInstance.dismiss('canceled');

@@ -47,7 +47,7 @@
                         return Organization.get({ id: orgId }).$promise;
                     },
                     admin: function () {
-                        return CONFIG.APP.PUBLISHER_MODE && currentUserModel.currentUser.admin;
+                        return currentUserModel.currentUser.admin;
                     }
                 },
                 backdrop : 'static'

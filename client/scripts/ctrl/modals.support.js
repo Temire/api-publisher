@@ -39,7 +39,7 @@
 
         /// ==== ViewSupportTicket Controller
         .controller('ViewSupportTicketCtrl',
-            function ($scope, $uibModal, $state, currentUser, ticket, user, publisherMode, serviceVersion,
+            function ($scope, $uibModal, $state, currentUser, ticket, user, serviceVersion,
                       ServiceTicketComments, ServiceSupportTickets, toastService, TOAST_TYPES) {
 
                 $scope.modalClose = modalClose;
@@ -48,7 +48,6 @@
                 $scope.currentUser = currentUser;
                 $scope.ticket = ticket;
                 $scope.user = user;
-                $scope.publisherMode = publisherMode;
                 $scope.serviceVersion = serviceVersion;
                 $scope.addComment = addComment;
                 $scope.deleteIssue = deleteIssue;

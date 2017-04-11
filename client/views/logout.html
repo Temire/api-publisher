@@ -7,9 +7,8 @@
                 <p class="text-desc">You have been logged out successfully.</p>
                 <p class="text-desc">Redirecting you to the main page in <span class="text-primary">{{secondsRemaining}}</span> {{secondsRemaining === 1 ? 'second' : 'seconds'}}.</p>
                 <p class="text-redirect text-light small">If nothing happens, you can click
-                    <a ng-if="publisherMode" ui-sref="root.myOrganizations">here</a>
-                    <a ng-if="!publisherMode" ui-sref="root.apis.grid">here</a>
-                    to return to the API {{publisherMode ? 'Publisher' : 'Store'}}.
+                    <a ui-sref="root.myOrganizations">here</a>
+                    to return to the API Publisher.
                 </p>
             </div>
             <div class="panel-footer text-muted text-normal small">

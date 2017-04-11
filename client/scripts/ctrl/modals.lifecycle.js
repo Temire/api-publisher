@@ -522,7 +522,7 @@
 
         /// ==== NewOrganization Controller
         .controller('NewOrganizationCtrl',
-            function ($scope, $uibModal, $state, publisherMode, admin,
+            function ($scope, $uibModal, $state, admin,
                       currentUserModel, toastService, CONFIG, REGEX, TOAST_TYPES, Organization) {
 
                 $scope.admin = admin;
@@ -546,11 +546,7 @@
                     Organization.save($scope.organization, function (newOrg) {
                         currentUserModel.refreshCurrentUserInfo(currentUserModel);
                         $scope.modalClose();
-                        if (publisherMode) {
-                            $state.go('root.organization', {orgId: newOrg.id});
-                        } else {
-                            $state.go('root.market-dash', {orgId: newOrg.id});
-                        }
+                        $state.go('root.organization', {orgId: newOrg.id});
                         toastService.createToast(
                             TOAST_TYPES.SUCCESS,
                             'Organization <b>' + newOrg.name + '</b> created!',

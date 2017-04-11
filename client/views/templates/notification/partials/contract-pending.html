@@ -1,12 +1,4 @@
-<a ui-sref="root.service.pending({ orgId: notification.serviceOrgId, svcId: notification.serviceId, versionId: notification.serviceVersion })" ng-if="publisherMode">
-    <span class="ion ion-email left bg-warning"></span>
-    <div class="desc">
-        <strong>Contract Pending</strong>
-        <p class="small text-light">A contract request for <span class="text-primary text-bold">{{notification.serviceName}} {{notification.serviceVersion}}</span> is pending.</p>
-        <p class="xsmall text-muted">{{ notification.createdOn | relativeDate }}</p>
-    </div>
-</a>
-<a ng-if="!publisherMode">
+<a ui-sref="root.service.pending({ orgId: notification.serviceOrgId, svcId: notification.serviceId, versionId: notification.serviceVersion })">
     <span class="ion ion-email left bg-warning"></span>
     <div class="desc">
         <strong>Contract Pending</strong>

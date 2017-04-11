@@ -1,12 +1,4 @@
-<a ui-sref="root.organization.pending({ orgId: notification.organizationId })" ng-if="publisherMode">
-    <span class="ion ion-person left bg-warning"></span>
-    <div class="desc">
-        <strong>Membership Pending</strong>
-        <p class="small text-light">Someone has requested to join <span class="text-primary text-bold">{{ notification.organizationName }}</span>.</p>
-        <p class="xsmall text-muted">{{ notification.createdOn | relativeDate }}</p>
-    </div>
-</a>
-<a ui-sref="root.market-dash.members({ orgId: notification.organizationId })" ng-if="!publisherMode">
+<a ui-sref="root.organization.pending({ orgId: notification.organizationId })">
     <span class="ion ion-person left bg-warning"></span>
     <div class="desc">
         <strong>Membership Pending</strong>

@@ -23,7 +23,7 @@
             <span class="text-muted" ng-if="(tickets | filter:{status: 'OPEN'} | filter:{title: filterText}).length === 0">No tickets found matching your filter criteria.</span>
             <div class="list-group col-sm-12" ng-if="(tickets | filter:{status: 'OPEN'} | filter:{title: filterText}).length > 0">
                 <div ng-repeat="supportTicket in tickets | filter:{status: 'OPEN' } | filter:{title: filterText}">
-                    <support-ticket current-user="currentUser" ticket="supportTicket" publisher-mode="publisherMode" service-version="serviceVersion"></support-ticket>
+                    <support-ticket current-user="currentUser" ticket="supportTicket" service-version="serviceVersion"></support-ticket>
                 </div>
             </div>
         </div>
@@ -36,7 +36,7 @@
             <span class="text-muted" ng-if="(tickets | filter:{status: 'CLOSED'} | filter:{title: filterText}).length === 0">No tickets found matching your filter criteria.</span>
             <div class="list-group col-sm-12" ng-if="(tickets | filter:{status: 'CLOSED'} | filter:{title: filterText}).length > 0">
                 <div ng-repeat="supportTicket in tickets | filter:{status: 'CLOSED'} | filter:{title: filterText}">
-                    <support-ticket current-user="currentUser" ticket="supportTicket" publisher-mode="publisherMode" service-version="serviceVersion"></support-ticket>
+                    <support-ticket current-user="currentUser" ticket="supportTicket" service-version="serviceVersion"></support-ticket>
                 </div>
             </div>
         </div>

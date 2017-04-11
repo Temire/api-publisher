@@ -1,16 +1,10 @@
 <ul class="list-unstyled left-elems">
 
-    <li class="hidden-xs" ng-if="!publisherMode">
-        <a id="mkt-logo" ui-sref="root.apis.grid" class="logo"><img class="logo"></a>
-    </li>
-    <li ng-if="!publisherMode">
-        <a id="mkt-title" class="btn btn-logo" ui-sref="root.apis.grid"><h4>{{title}}</h4></a>
-    </li>
-    <li class="hidden-xs" ng-if="publisherMode">
+    <li class="hidden-xs">
         <a id="pub-logo" ui-sref="root.myOrganizations" class="logo"><img class="logo"></a>
     </li>
-    <li ng-if="publisherMode">
-        <a id="pub-title"  class="btn btn-logo" ui-sref="root.myOrganizations"><h4>{{title}}</h4></a>
+    <li>
+        <a id="pub-title"  class="btn btn-logo" ui-sref="root.myOrganizations"><h4>API Publisher</h4></a>
     </li>
     <li ng-if="maintenanceMode">
         <label ng-click="showMaintenanceInfo()" uib-tooltip="Click for more info" tooltip-placement="bottom" tooltip-class="header-tooltip" class="clickable label-warning label-maintenance">Undergoing Maintenance</label>

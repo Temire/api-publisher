@@ -12,8 +12,7 @@
                         <h3 class="text-primary">My Organizations</h3>
                     </div>
                     <div class="col-sm-9">
-                        <p class="text-light" ng-if="publisherMode">This page provides an overview of organizations of which you are a member. You can create new plans and services within these organizations.</p>
-                        <p class="text-light" ng-if="!publisherMode">This page provides an overview of organizations of which you are a member. You can create new applications within these organizations.</p>
+                        <p class="text-light">This page provides an overview of organizations of which you are a member. You can create new plans and services within these organizations.</p>
                     </div>
                     <div class="col-sm-3">
                         <button id="new-org" class="btn btn-line-primary pull-right" ng-click="modalNewOrganization()">New Organization</button>
@@ -58,7 +57,7 @@
                             </div>
 
                             <div class="col-sm-12 mt20">
-                                <apim-org-table orgs="filteredOrgs" publisher-mode="publisherMode"></apim-org-table>
+                                <apim-org-table orgs="filteredOrgs"></apim-org-table>
                             </div>
                         </div>
                     </div>

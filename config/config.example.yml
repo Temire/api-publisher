@@ -1,5 +1,5 @@
 default:
-  appName: "api-market"
+  appName: "api-publisher"
   port: 3000
   environment: "local"
   redirect:
@@ -13,10 +13,6 @@ default:
       uri: "< api engine web uri >"
     apikey: "< t1g apikey >"
   orgFriendlyName: true
-  publisherMode: false
-  showApiDeveloperNameInStore: false
-  disableAnnouncements: true
-  disableSupport: true
   storage:
     local: "t1g-"
     session: "t1g-session-"

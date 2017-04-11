@@ -29,9 +29,6 @@
         $scope.toastService = toastService;
         $scope.support = support;
         $scope.modalAnim = 'default';
-        $scope.showDeveloper = CONFIG.APP.SHOW_API_DEVELOPER_NAME_IN_STORE;
-        $scope.showAnnouncements = !CONFIG.APP.DISABLE_ANNOUNCEMENTS;
-        $scope.showSupport = !CONFIG.APP.DISABLE_SUPPORT;
         $scope.modalSelectApplicationForContract = modalSelectApplicationForContract;
         $scope.modalClose = modalClose;
         $scope.hasTerms = hasTerms;
