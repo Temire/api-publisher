@@ -58,7 +58,7 @@
 
                 $scope.toasts = toastService.toasts;
 
-                $scope.header = 'ACPAAS - API Publisher';
+                $scope.header = 'Trust1Gateway API Publisher';
 
                 $scope.navFull = false;
 
@@ -133,6 +133,7 @@
 
         .controller('ErrorCtrl', function ($scope, $state) {
             $scope.error = $state.current.error;
+            $scope.copyrightYear = moment().format('YYYY');
             if($scope.error.message === 'JWT must have 3 parts'){
                 $state.go('accessdenied',$scope.error);
             }
@@ -140,6 +141,7 @@
 
         .controller('AccessDeniedCtrl', function ($scope, $state) {
             $scope.error = $state.current.error;
+            $scope.copyrightYear = moment().format('YYYY');
             console.log($scope.error);
         })
 
@@ -346,6 +348,7 @@
 
         .controller('LogoutCtrl', function($scope, $state, $timeout) {
             $scope.secondsRemaining = 5;
+            $scope.copyrightYear = moment().format('YYYY');
 
             countDownSecond();
 
