@@ -89,8 +89,8 @@
         }
     }
     
-    function userSecurityCtrl($scope, $uibModal, userGrants, userScreenModel, toastService, appService, _) {
-        userScreenModel.updateTab('Connected Apps');
+    function userSecurityCtrl($scope, $uibModal, userGrants, userScreenModel, toastService, OAuthTokenRevoke, $q, _) {
+        userScreenModel.updateTab('Security');
         $scope.canDoBulkOperation = canDoBulkOperation;
         $scope.change = change;
         $scope.revoke = revoke;
@@ -152,8 +152,11 @@
         }
 
         function doRevoke(toRevoke) {
-            var tokensToRevoke = _.map(toRevoke, 'originalToken.accessToken');
-            return appService.revokeAppVersionTokens(tokensToRevoke).then(function () {
+            let promises = [];
+            _.forEach(_.map(toRevoke, 'originalToken.accessToken'), function (token) {
+                promises.push(OAuthTokenRevoke.delete({ token: token }).$promise);
+            });
+            return $q.all(promises).then(() => {
                 $scope.connectedApps = _.difference($scope.connectedApps, toRevoke);
             });
         }

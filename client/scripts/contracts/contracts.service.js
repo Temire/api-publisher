@@ -5,7 +5,7 @@
         .service('contractService', contractService);
 
 
-    function contractService($q, $rootScope, appService, AcceptContract, CancelContractRequest, ContractRequests, OrgIncomingPendingContracts,
+    function contractService($q, $rootScope, AcceptContract, CancelContractRequest, ContractRequests, OrgIncomingPendingContracts,
                              OrgOutgoingPendingContracts, RejectContract, RequestContract, EVENTS) {
         this.accept = accept;
         this.break = breakContract;
@@ -53,7 +53,8 @@
 
                 requests.forEach(function (req) {
                     if (req.serviceId === svcId && req.serviceVersion === versionId) {
-                        applicationDetPromises.push(appService.getAppVersionDetails(req.appOrg, req.appId, req.appVersion)
+                        ;
+                        applicationDetPromises.push(ApplicationVersion.get({ orgId: req.appOrg, appId: req.appId, versionId: req.appVersion }).$promise
                             .then(function (appVersion) {
                                 req.appDetails = appVersion;
                                 contracts.push(req);

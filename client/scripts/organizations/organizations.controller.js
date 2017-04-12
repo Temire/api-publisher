@@ -88,7 +88,7 @@
 
     }
 
-    function organizationsCtrl($scope, appOrgData, orgs, svcOrgData, pendingOrgs, orgService, toastService, _) {
+    function organizationsCtrl($scope, orgs, svcOrgData, pendingOrgs, orgService, toastService, _) {
 
         $scope.doSearch = doSearch;
         $scope.orgNameRegex = '\\w+';

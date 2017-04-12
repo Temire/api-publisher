@@ -7,7 +7,7 @@
         .service('userService', userService);
 
     function currentUser($q, CurrentUserInfo, CurrentUserApps, ApplicationContract, ApplicationVersion,
-                         CurrentUserAppOrgs, CurrentUserServices, CurrentUserSvcOrgs, CurrentUserToken, appService, $http, CONFIG, _) {
+                         CurrentUserAppOrgs, CurrentUserServices, CurrentUserSvcOrgs, CurrentUserToken, $http, _) {
         this.checkStatus = checkStatus;
         this.getInfo = getInfo;
         this.getUserAppOrgs = getUserAppOrgs;
