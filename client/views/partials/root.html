@@ -10,9 +10,7 @@
 
   <!-- toasts -->
   <div class="toast toast-bottomRight">
-    <uib-alert ng-repeat="toast in toasts" type="{{toast.type}}" close="closeAlert($index)" class="toast-fade">
-      <div ng-bind-html="toast.msg"></div>
-    </uib-alert>
+    <div uib-alert ng-repeat="toast in toasts" class="alert alert-{{toast.type}} toast-fade" ng-bind-html="toast.msg"></div>
   </div>
 
   <!-- content-here -->
