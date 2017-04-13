@@ -3,96 +3,6 @@
 
     angular.module('app.directives', [])
 
-        .directive('collapseNavAccordion', ['$rootScope', function($rs) {
-            return {
-                restrict: 'A',
-                link: function(scope, el, attrs) {
-                    var lists = el.find('ul').parent('li'), 	// target li which has sub ul
-                        a = lists.children('a'),
-                        aul = lists.find('ul a'),
-                        listsRest = el.children('li').not(lists),
-                        aRest = listsRest.children('a'),
-                        stopClick = 0;
-
-                    a.on('click', function(e) {
-                        if (!scope.navHorizontal) {
-                            if (e.timeStamp - stopClick > 300) {
-                                var self = $(this),
-                                    parent = self.parent('li');
-                                // remove `open` class from all
-                                lists.not(parent).removeClass('open');
-                                parent.toggleClass('open');
-                                stopClick = e.timeStamp;
-                            }
-                            e.preventDefault();
-                        }
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                    });
-
-                    aul.on('touchend', function(e) {
-                        if (scope.isMobile) {
-                            $rs.navOffCanvas = $rs.navOffCanvas ? false : true;
-                        }
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                    });
-
-                    aRest.on('touchend', function(e) {
-                        if (scope.isMobile) {
-                            $rs.navOffCanvas = $rs.navOffCanvas ? false : true;
-                        }
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                    });
-
-                    // slide up nested nav when clicked on aRest
-                    aRest.on('click', function(e) {
-                        if (!scope.navHorizontal) {
-                            var parent = aRest.parent('li');
-                            lists.not(parent).removeClass('open');
-
-                        }
-                        e.stopPropagation();
-                        e.stopImmediatePropagation();
-                    });
-
-                }
-            };
-        }])
-
-        // highlight active nav
-        .directive('highlightActive', function($location) {
-            return {
-                restrict: 'A',
-                link: function(scope, el, attrs) {
-                    var links = el.find('a'),
-                        path = function() {return $location.path();},
-                        highlightActive = function(links, path) {
-                            var path = '#' + path;
-                            angular.forEach(links, function(link) {
-                                var link = angular.element(link),
-                                    li = link.parent('li'),
-                                    href = link.attr('href');
-
-                                if (li.hasClass('active')) {
-                                    li.removeClass('active');
-                                }
-                                if (path.indexOf(href) === 0) {
-                                    li.addClass('active');
-                                }
-                            });
-                        };
-
-                    highlightActive(links, $location.path());
-                    scope.$watch(path, function(newVal, oldVal) {
-                        if (newVal === oldVal) {return;}
-                        highlightActive(links, $location.path());
-                    });
-                }
-            };
-        })
-
         // perfect-scrollbar simple directive
         .directive('customScrollbar', function($interval) {
             return {
@@ -115,55 +25,6 @@
             };
         })
 
-        // Authentication directives
-        .directive('authAccordionGroup', function () {
-            return {
-                scope: {title: '@heading'},
-                transclude: true,
-                templateUrl: '/views/templates/auth/accordion-group.html'
-            };
-        })
-
-        .directive('oauth2', function() {
-            return {
-                scope: {
-                    clientId: '=',
-                    clientSecret: '=',
-                    scopes: '='
-                },
-                templateUrl: '/views/templates/auth/oauth2.html'
-            };
-        })
-
-        .directive('basicAuth', function() {
-            return {
-                templateUrl: '/views/templates/auth/basic.html'
-            };
-        })
-
-        .directive('keyAuth', function() {
-            return {
-                templateUrl: '/views/templates/auth/key.html'
-            };
-        })
-
-        .directive('queryAuth', function() {
-            return {
-                templateUrl: '/views/templates/auth/query.html'
-            };
-        })
-
-        .directive('overview', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    entityVersion: '=',
-                    type: '@'
-                },
-                transclude: true,
-                templateUrl: '/views/templates/overview/overview.html'
-            };
-        })
 
         .directive('activityList', function () {
             return {
@@ -195,85 +56,6 @@
                         reader.readAsText((onChangeEvent.srcElement || onChangeEvent.target).files[0]);
                     });
                 }
-            };
-        })
-
-        .directive('overviewHeader', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    name: '@',
-                    hasLogo: '@',
-                    base64logo: '@',
-                    description: '@',
-                    icon: '@',
-                    entityVersion: '=',
-                    versions: '=',
-                    selectVersion: '&',
-                    newVersion: '&',
-                    endpoint: '@',
-                    save: '=',
-                    editPermission: '='
-                },
-                transclude: true,
-                templateUrl: '/views/templates/overview/overview-header.html'
-            };
-        })
-
-        .directive('overviewStatus', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    createdOn: '@',
-                    createdBy: '@',
-                    status: '@'
-                },
-                templateUrl: '/views/templates/overview/overview-status.html'
-            };
-        })
-
-        .directive('overviewTabs', function () {
-            return {
-                restrict:'E',
-                transclude: true,
-                templateUrl: '/views/templates/overview/overview-tabs.html',
-                controller: function ($scope, alertService) {
-                    $scope.alerts = alertService.alerts;
-                    $scope.closeAlert = closeAlert;
-
-                    function closeAlert(index) {
-                        alertService.closeAlert(index);
-                    }
-                }
-            };
-        })
-
-        .directive('policyList', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    policies: '=',
-                    policyConfiguration: '=',
-                    canEdit: '=',
-                    remove: '=removeFunction',
-                    reorder: '=reorderFunction',
-                    type: '@',
-                    org: '@orgId',
-                    id: '@pageId',
-                    version: '@'
-                },
-                controller: function($scope) {
-                    $scope.policyListOptions = {
-                        containerPositioning: 'relative',
-
-                        orderChanged: function(event) {
-                            $scope.ctrl.reorder($scope.ctrl.policies);
-                        }
-                    };
-
-                    $scope.pluginName = $scope.$parent.pluginName;
-                },
-                templateUrl: 'views/templates/policyList.html'
             };
         })
 
@@ -411,23 +193,6 @@
                 '\'label-muted\': status === \'Retired\'}\">' +
                 '{{status}}</label>'
             };
-        })
-
-        .directive('statusText', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    status: '@'
-                },
-                template: '<span class="text-uppercase" ' +
-                'data-ng-class=\"{\'text-success\': status === \'Published\' || status === \'Registered\'' +
-                ' || status === \'Locked\' || status === \'OPEN\',' +
-                '\'text-warning\': status === \'Ready\' || status === \'Deprecated\', ' +
-                '\'text-purple\': status === \'Created\', ' +
-                '\'text-danger\': status === \'CLOSED\', ' +
-                '\'text-muted\': status === \'Retired\'}\">' +
-                '{{status}}</span>'
-            }
         })
 
         .directive('supportList', function () {

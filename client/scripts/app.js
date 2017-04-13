@@ -38,13 +38,11 @@
         'app.services',
         'app.filters',
         'app.apiEngine',
-        'app.core.components',
         'app.core.login',
         'app.core.keycloak',
         'app.core.routes',
         'app.core.util',
         'app.ctrl.auth.oauth',
-        'app.ctrl.login',
         'app.ctrl.modals',
         'app.ctrl.modals.lifecycle',
         'app.ctrl.modals.support',
@@ -59,7 +57,6 @@
         'app.policies',
         'app.service',
         'app.swagger',
-        'app.tour',
         'app.ui',
         'app.user'
 
