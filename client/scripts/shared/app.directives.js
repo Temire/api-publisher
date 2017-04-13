@@ -430,66 +430,6 @@
             }
         })
 
-        .directive('apiList', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    apis: '='
-                },
-                controller: function ($scope, currentUserModel, followerService, CONFIG) {
-                    $scope.followAction = followAction;
-                    $scope.userIsFollowing = userIsFollowing;
-                    $scope.useFriendlyNames = CONFIG.APP.ORG_FRIENDLY_NAME_ENABLED;
-
-                    function followAction(api) {
-                        if (userIsFollowing(api)) {
-                            // Already following, so unfollow
-                            followerService.removeFollower(api);
-
-                        } else {
-                            // Not yet following, so add follower
-                            followerService.addFollower(api);
-                        }
-                    }
-
-                    function userIsFollowing(api) {
-                        return (api.service.followers.indexOf(currentUserModel.currentUser.username) > -1);
-                    }
-                },
-                templateUrl: 'views/templates/apilist.html'
-            };
-        })
-
-        .directive('apiGrid', function () {
-            return {
-                restrict: 'E',
-                scope: {
-                    apis: '='
-                },
-                controller: function ($scope, currentUserModel, followerService, CONFIG) {
-                    $scope.followAction = followAction;
-                    $scope.useFriendlyNames = CONFIG.APP.ORG_FRIENDLY_NAME_ENABLED;
-                    $scope.userIsFollowing = userIsFollowing;
-
-                    function followAction(api) {
-                        if (userIsFollowing(api)) {
-                            // Already following, so unfollow
-                            followerService.removeFollower(api);
-
-                        } else {
-                            // Not yet following, so add follower
-                            followerService.addFollower(api);
-                        }
-                    }
-
-                    function userIsFollowing(api) {
-                        return (api.service.followers.indexOf(currentUserModel.currentUser.username) > -1);
-                    }
-                },
-                templateUrl: 'views/templates/apigrid.html'
-            };
-        })
-
         .directive('supportList', function () {
             return {
                 restrict: 'E',
