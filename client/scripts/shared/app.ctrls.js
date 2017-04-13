@@ -179,8 +179,6 @@
                     $scope.loggedIn = loginHelper.checkLoggedIn();
 
                     checkIsEmailPresent();
-                    checkFirstVisit();
-                    checkNeedsPopover();
 
                     $scope.$on(EVENTS.NOTIFICATIONS_UPDATED, function () {
                         notificationService.getNotificationsForUser().then(function (notifs) {
@@ -215,14 +213,6 @@
                             windowClass: $scope.modalAnim	// Animation Class put here.
                         });
                     }
-                }
-
-                function checkFirstVisit() {
-
-                }
-
-                function checkNeedsPopover() {
-
                 }
 
                 function clearNotification(notification) {

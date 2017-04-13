@@ -5,8 +5,7 @@
         .service('loginHelper', loginHelper);
 
 
-    function loginHelper($localStorage, $sessionStorage, $location, $state, $window, resourceUtil, CONFIG, errorHelper, Auth, _) {
-        this.checkIsFirstVisit = checkIsFirstVisit;
+    function loginHelper($location, $state, Auth, _) {
         this.checkLoginError = checkLoginError;
         this.checkLoggedIn = checkLoggedIn;
         this.checkLoginRequiredForState = checkLoginRequiredForState;
@@ -19,10 +18,6 @@
 
         function isTransitioningToError() {
             return transitionToError;
-        }
-
-        function checkIsFirstVisit() {
-            return !!$localStorage.hasVisited;
         }
 
         function checkLoginError() {
