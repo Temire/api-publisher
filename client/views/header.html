@@ -84,10 +84,6 @@
 <ul class="list-unstyled right-elems" ng-if="loggedIn">
 
     <li id="my-orgs-wrapper">
-        <div ng-if="onApiPage" uib-popover-template="'views/popovers/app-popover.html'"
-              popover-placement="bottom-right" popover-is-open="ctrl.appPopoverOpen" popover-trigger="none"></div>
-        <div uib-popover-template="'views/popovers/org-popover.html'"
-             popover-placement="bottom-right" popover-trigger="none" popover-is-open="ctrl.orgPopoverOpen"></div>
         <span id="my-orgs"
               ui-sref="root.myOrganizations"
               class="btn btn-header ml10 mr15">My Organizations</span>
