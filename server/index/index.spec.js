@@ -25,7 +25,7 @@ describe('Public assets', function onDescribe() {
                     return done(err);
                 }
 
-                expect(res.text).to.contain("hello");
+                expect(res.text).to.contain("a public file");
 
                 done();
             });
