@@ -164,8 +164,62 @@
         });
     });
 
-    module.factory('Auth', function () {
-        return auth;
+    module.service('Auth', function ($q) {
+        this.checkToken = checkToken;
+        let checkInProgress;
+
+        function checkToken() {
+            if (!checkInProgress) {
+                checkInProgress = $q.defer();
+                auth.authz.updateToken(60).success((refreshed) => {
+                    checkInProgress.resolve(getGwToken(refreshed));
+                }).error(function() {
+                    checkInProgress.reject('error refreshing/retrieving token');
+                });
+            }
+            return checkInProgress.promise.finally(() => {
+                checkInProgress = undefined;
+            });
+        }
+
+        function getGwToken(tokenRefreshed) {
+            if (tokenRefreshed) {
+                return exchangeToken(auth.authz.token).then(() => {
+                    return auth.gwToken;
+                });
+            } else {
+                // make sure we have a GW token
+                if (auth.gwToken) {
+                    // token is available and valid, return it
+                    return auth.gwToken;
+                } else {
+                    // gwToken not set, exchange current KeyCloak token for gwToken
+                    return exchangeToken(auth.authz.token).then(() => {
+                        return auth.gwToken;
+                    });
+                }
+            }
+        }
+
+        function exchangeToken(kcToken) {
+            // Sending and receiving data in JSON format using POST method
+            // Need to use XHR because $http causes circular dependency
+            let deferred = $q.defer();
+            let xhr = new XMLHttpRequest();
+            const url = "/token";
+            xhr.open("POST", url, true);
+            xhr.setRequestHeader("Content-type", "application/json");
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === 4 && xhr.status === 200) {
+                    auth.gwToken = JSON.parse(xhr.responseText);
+                    deferred.resolve(auth.gwToken);
+                }
+            };
+            const data = JSON.stringify({ "kcToken": kcToken });
+            xhr.send(data);
+
+            return deferred.promise;
+        }
     });
 
     // Keycloak interceptor will be used for all requests
@@ -174,20 +228,14 @@
             request: function (config) {
                 let deferred = $q.defer();
                 if (_.startsWith(config.url, 'proxy/')) {
-                    if (Auth.authz.token) {
-                        Auth.authz.updateToken(60).success(function () {
-                            config.headers = config.headers || {};
-                            config.headers['Authorization'] = 'Bearer ' + Auth.authz.token;
-                            deferred.resolve(config);
-                        }).error(function () {
-                            Auth.authz.clearToken();
-                            deferred.reject('Failed to refresh token');
-                            kcHelper.redirectToLogin();
-                        });
-                    } else {
-                        // No token found, need to redirect to login
+                    Auth.checkToken().then(token => {
+                        config.headers = config.headers || {};
+                        config.headers['Authorization'] = 'Bearer ' + token;
+                        deferred.resolve(config);
+                    }, () => {
+                        deferred.reject('Failed to retrieve token');
                         kcHelper.redirectToLogin();
-                    }
+                    });
                 } else {
                     deferred.resolve(config);
                 }
