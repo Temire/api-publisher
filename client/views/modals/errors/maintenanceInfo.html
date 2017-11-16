@@ -1,0 +1,22 @@
+<div class="modal-body style-placeholders">
+    <div class="col-sm-12 text-center text-light">
+        <h2>The API Engine is in maintenance mode.</h2>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-sm-12 mt15 text-light">
+                <p>
+                    During maintenance the API Engine is switched to read-only mode.
+                    You can view all the pages, but nothing can be updated until maintenance is completed.
+                </p>
+            </div>
+            <div class="col-sm-12 mt15" ng-if="msg">
+                <h4>Message from the administrators:</h4>
+                <p class="well text-light">{{msg}}</p>
+            </div>
+            <div class="col-sm-12 text-center mt30">
+                <button class="btn btn-warning btn-w200" ng-click="close()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

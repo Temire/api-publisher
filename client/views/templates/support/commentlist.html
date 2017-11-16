@@ -1,0 +1,7 @@
+<p class="text-bold text-primary">Comments</p>
+<div class="well" ng-if="comments.length == 0">
+    No comments yet. You can add one below!
+</div>
+<div ng-repeat="comment in comments">
+    <support-ticket-comment comment="comment"></support-ticket-comment>
+</div>

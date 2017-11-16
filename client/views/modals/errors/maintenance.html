@@ -1,0 +1,26 @@
+<div class="modal-body style-placeholders">
+    <div class="col-sm-12 text-center text-light">
+        <h2>You can't do that right now. Sorry!</h2>
+        <h3>The system is in maintenance mode.</h3>
+    </div>
+    <div class="panel">
+        <div class="panel-body">
+            <div class="col-sm-12 mt15 text-light">
+                <p>
+                    During maintenance the API Engine is switched to read-only mode.
+                    This means that some actions cannot be performed, including the one you just tried <span class="fa fa-smile-o"></span>
+                </p>
+                <p>
+                    Please check back once maintenance has been completed.
+                </p>
+            </div>
+            <div class="col-sm-12 mt15" ng-if="msg">
+                <h4>Message from the administrators:</h4>
+                <p class="well text-light">{{msg}}</p>
+            </div>
+            <div class="col-sm-12 text-center mt30">
+                <button class="btn btn-warning btn-w200" ng-click="close()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

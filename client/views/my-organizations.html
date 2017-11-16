@@ -1,0 +1,68 @@
+<div class="page page-ui-notifications">
+    <div class="toast toast-bottomRight">
+        <uib-alert ng-repeat="toast in toasts" type="{{toast.type}}" close="closeAlert($index)" class="toast-fade">
+            <div ng-bind-html="toast.msg">Test Toast</div>
+        </uib-alert>
+    </div>
+    <div class="col-sm-10 col-sm-offset-1">
+        <div class="panel panel-default">
+            <div class="panel-body">
+                <div class="col-sm-12">
+                    <div class="col-sm-12">
+                        <h3 class="text-primary">My Organizations</h3>
+                    </div>
+                    <div class="col-sm-9">
+                        <p class="text-light">This page provides an overview of organizations of which you are a member. You can create new plans and services within these organizations.</p>
+                    </div>
+                    <div class="col-sm-3">
+                        <button id="new-org" class="btn btn-line-primary pull-right" ng-click="modalNewOrganization()">New Organization</button>
+                    </div>
+                    <div class="col-sm-12">
+                        <hr>
+                    </div>
+                </div>
+
+                <div class="col-sm-12 browse-items">
+                    <div class="col-sm-12">
+
+                        <div class="col-sm-12" ng-hide="orgs.length > 0">
+                            <div class="col-sm-8 col-sm-offset-1 well">
+                                <p>No organizations found. Maybe you are not a member of any organization yet?</p>
+                                <p>You can find organizations to join <a ui-sref="root.organizations">by clicking here</a> or create a new one using the button above!</p>
+                            </div>
+                            <div class="col-sm-3">
+                                <div class="no-entities-arrow"></div>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12" ng-show="orgs.length > 0">
+                            <div class="col-sm-12">
+                                <p>You are a member of {{orgs.length}} organizations.</p>
+                            </div>
+
+                            <form role="form" class="form-horizontal">
+                                <div class="col-sm-6 form-group">
+                                    <div class="col-sm-10 input-group">
+                                        <input type="text" class="form-control" ng-model="searchText" placeholder="Filter by organization name...">
+                                    </div>
+                                </div>
+                            </form>
+
+                            <div class="col-sm-12" ng-show="orgs.length > 0 && (orgs | filter:{name:searchText}).length == 0">
+                                <div class="row">
+                                    <div class="col-sm-10 col-sm-offset-1 well">
+                                        No organizations found matching your filter criteria - please try searching for something different.
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-12 mt20">
+                                <apim-org-table orgs="filteredOrgs"></apim-org-table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

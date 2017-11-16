@@ -1,0 +1,25 @@
+<div class="page page-err clearfix">
+
+  <div class="err-container">
+
+    <h1 class="maintenance mb0">Maintenance</h1>
+    <h2 class="mb30">We can't log you in right now. Sorry!</h2>
+
+    <div class="col-sm-6 col-sm-offset-3 text-justify text-light mt15">
+      <p>
+        During maintenance the API Engine is switched to read-only mode.
+        Unfortunately this means we cannot do the necessary provisioning for first-time visitors,
+        so login is disabled for new users, i.e. you <span class="fa fa-smile-o"></span>
+      </p>
+      <p>
+        Please check back once maintenance has been completed.
+      </p>
+    </div>
+    <div class="col-sm-6 col-sm-offset-3 mt15 text-left" ng-if="error">
+      <h4>Message from the administrators:</h4>
+      <p class="well text-light">{{error}}</p>
+    </div>
+
+  </div>
+
+</div>

@@ -1,0 +1,48 @@
+<div class="page page-api">
+    <api-page-breadcrumbs>
+        <li class="active"><a ui-sref="root.myOrganizations">API Publisher</a></li>
+        <li class="active"><a ui-sref="root.administration.users">Administration</a></li>
+    </api-page-breadcrumbs>
+
+    <api-page-header has-logo="false">
+        <div>
+            <span id="org-name" class="size-h3 text-primary text-uppercase text-bold">Administration and Settings</span>
+
+            <div>Administration tasks can be performed on this page.
+                Administrators can be added, removed or updated from this section.
+            </div>
+
+        </div>
+    </api-page-header>
+
+    <div id="navtabs" class="api-row">
+        <div class="api-content-container navtab-container">
+            <input id="users" type="radio" name="tabs" ui-sref-active="active" ui-sref=".users">
+            <label for="users">Admins</label>
+
+            <input id="branding" type="radio" name="tabs" ui-sref-active="active" ui-sref=".branding">
+            <label for="branding">Branding</label>
+
+            <input id="expiration" type="radio" name="tabs" ui-sref-active="active" ui-sref=".security">
+            <label for="expiration">Security</label>
+
+            <input id="terms" type="radio" name="tabs" ui-sref-active="active" ui-sref=".terms">
+            <label for="terms">Terms & Conditions</label>
+
+            <input id="status" type="radio" name="tabs" ui-sref-active="active" ui-sref=".status">
+            <label for="status">Status</label>
+        </div>
+    </div>
+
+
+    <div class="api-row">
+        <div class="api-content-container">
+            <div class="panel">
+                <div class="panel-body">
+                    <div ui-view></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

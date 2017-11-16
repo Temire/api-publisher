@@ -1,0 +1,16 @@
+<div class="page page-err clearfix">
+
+  <div class="err-container">
+
+    <h1 class="m404 mb0">Something went wrong.</h1>
+    <h2 class="mb30">We're very sorry, but there was an error while communicating with our servers.</h2>
+
+
+    <p class="text-desc mb20" ng-if="error.status">The server returned "Error {{error.status}}: {{error.statusText}}". That's all we know.</p>
+    <p class="text-desc mb20" ng-if="!error.status">An internal application error occurred. We're looking into the problem right now.</p>
+
+    <p class="small text-muted text-normal">Trust1Team, Copyright &copy; {{copyrightYear}}</p>
+
+  </div>
+
+</div>

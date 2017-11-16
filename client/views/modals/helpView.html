@@ -1,0 +1,11 @@
+<div class="modal-header clearfix">
+  <h4 class="modal-title text-capitalize">{{type}} Screen Help</h4>
+  <span class="close ion ion-android-close" ng-click="modalClose()"></span>
+</div>
+<div class="modal-body">
+  <ng-include src="'views/modals/partials/help/plan.html'" ng-if="type === 'plan'"></ng-include>
+  <ng-include src="'views/modals/partials/help/service.html'" ng-if="type === 'service'"></ng-include>
+</div>
+<div class="modal-footer">
+  <button class="btn btn-default ml15" ng-click="modalClose()">OK</button>
+</div>

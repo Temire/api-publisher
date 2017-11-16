@@ -1,0 +1,7 @@
+{
+  "realm": "T1G-Test",
+  "auth-server-url": "http://localhost:3000/auth",
+  "ssl-required": "external",
+  "resource": "T1G",
+  "public-client": true
+}

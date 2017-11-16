@@ -1,0 +1,30 @@
+default:
+  appName: "api-publisher"
+  port: 3000
+  environment: "local"
+  redirect:
+    scheme: "http"
+    domain: "localhost"
+    port: 3000
+  gw:
+    auth:
+      uri: "< api engine auth uri >"
+    web:
+      uri: "< api engine web uri >"
+    apikey: "< t1g apikey >"
+  orgFriendlyName: true
+  storage:
+    local: "t1g-"
+    session: "t1g-session-"
+  kong:
+    host: "< t1g base uri >"
+
+test:
+  appName: "t1t-skeleton"
+  scheme: "http"
+  port: 3001
+  environment: "TEST"
+  redirect:
+    scheme: "http"
+    domain: "localhost"
+    port: 3001

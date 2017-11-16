@@ -1,0 +1,153 @@
+<ul class="list-unstyled left-elems">
+
+    <li class="hidden-xs">
+        <a id="pub-logo" ui-sref="root.myOrganizations" class="logo"><img class="logo"></a>
+    </li>
+    <li>
+        <a id="pub-title"  class="btn btn-logo" ui-sref="root.myOrganizations"><h4>API Publisher</h4></a>
+    </li>
+    <li ng-if="maintenanceMode">
+        <label ng-click="showMaintenanceInfo()" uib-tooltip="Click for more info" tooltip-placement="bottom" tooltip-class="header-tooltip" class="clickable label-warning label-maintenance">Undergoing Maintenance</label>
+    </li>
+
+    <!-- Search box -->
+    <!--<li ng-show="showSearch">-->
+        <!--<div class="form-search hidden-xs">-->
+            <!--<form id="site-search" ng-submit="doSearch(query)">-->
+                <!--<input type="search" class="form-control" ng-model="query" placeholder="Search APIs">-->
+                <!--<button type="submit" class="ion ion-ios-search-strong"></button>-->
+            <!--</form>-->
+        <!--</div>-->
+    <!--</li>	&lt;!&ndash; #end search-box &ndash;&gt;-->
+
+    <!--<li ng-show="showExplore">-->
+        <!--<button id="apis" ng-click="toApis()" class="btn btn-header ml15"><i class="ion ion-map"></i>Explore APIs</button>-->
+    <!--</li>-->
+    <!--<li ng-show="showDash">-->
+        <!--<button id="market-dash" ng-click="toMarketDash()" class="btn btn-header ml15"><i class="ion ion-home"></i>Explore Applications</button>-->
+    <!--</li>-->
+
+    <!--<li class="notify-drop hidden-xs uib-dropdown" uib-dropdown="">-->
+    <!--<a href="" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">-->
+    <!--<i class="ion ion-speakerphone"></i>-->
+    <!--<span class="badge badge-danger badge-xs circle">3</span>-->
+    <!--</a>-->
+
+    <!--<div class="panel panel-default dropdown-menu ps-container" custom-scrollbar="">-->
+    <!--<div class="panel-heading">-->
+    <!--You have 3 new notifications-->
+    <!--<a href="javascript:;" class="right btn btn-xs btn-pink mt-3">Show All</a>-->
+    <!--</div>-->
+    <!--<div class="panel-body">-->
+    <!--<ul class="list-unstyled">-->
+    <!--<li class="clearfix">-->
+    <!--<a href="">-->
+    <!--<span class="ion ion-archive left bg-success"></span>-->
+    <!--<div class="desc">-->
+    <!--<strong>App downloaded</strong>-->
+    <!--<p class="small text-muted">1 min ago</p>-->
+    <!--</div>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li class="clearfix">-->
+    <!--<a href="">-->
+    <!--<span class="ion ion-alert-circled left bg-danger"></span>-->
+    <!--<div class="desc">-->
+    <!--<strong>Application Error</strong>-->
+    <!--<p class="small text-muted">4 hours ago</p>-->
+    <!--</div>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--<li class="clearfix">-->
+    <!--<a href="">-->
+    <!--<span class="ion ion-person left bg-info"></span>-->
+    <!--<div class="desc">-->
+    <!--<strong>New User Registered</strong>-->
+    <!--<p class="small text-muted">2 days ago</p>-->
+    <!--</div>-->
+    <!--</a>-->
+    <!--</li>-->
+    <!--</ul>-->
+    <!--</div>-->
+    <!--<div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>-->
+    <!--</li>-->
+
+</ul>
+
+<ul class="list-unstyled right-elems" ng-if="!loggedIn" >
+    <li class="pr20">
+        <button id="login" ng-click="toLogin()" class="btn btn-tag-primary btn-header"><i class="ion ion-log-in"></i>Login</button>
+    </li>
+</ul>
+
+
+<ul class="list-unstyled right-elems" ng-if="loggedIn">
+
+    <li id="my-orgs-wrapper">
+        <span id="my-orgs"
+              ui-sref="root.myOrganizations"
+              class="btn btn-header ml10 mr15">My Organizations</span>
+    </li>
+
+    <li id="actions" class="notify-drop hidden-xs dropdown" uib-dropdown="" ng-if="pendingNotifications.length > 0">
+        <a id="pending-toggle" href="" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-inbox fa-lg"></i>
+            <span class="badge badge-warning badge-sm circle" ng-if="pendingNotifications.length > 0">{{pendingNotifications.length}}</span>
+        </a>
+        <div class="panel panel-default dropdown-menu dropdown-menu-right ps-container" custom-scrollbar="">
+            <div class="panel-heading">
+                You have {{pendingNotifications.length}} pending {{ pendingNotifications.length > 1 ? 'decisions' : 'decision'}}
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li class="clearfix" ng-repeat="notification in pendingNotifications">
+                        <apim-notification notification="notification" clear-function="clearNotification"></apim-notification>
+                    </li>
+                </ul>
+            </div>
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
+    </li>
+
+    <li id="notifications" class="notify-drop hidden-xs dropdown" uib-dropdown="" ng-if="notifications.length > 0">
+        <a id="notif-toggle" href="" uib-dropdown-toggle="" aria-haspopup="true" aria-expanded="false">
+            <i class="fa fa-bell-o fa-lg"></i>
+            <span class="badge badge-warning badge-sm circle" ng-if="notifications.length > 0">{{notifications.length}}</span>
+        </a>
+        <div class="panel panel-default dropdown-menu dropdown-menu-right ps-container" custom-scrollbar="">
+            <div class="panel-heading">
+                You have {{notifications.length}} new {{ notifications.length > 1 ? 'notifications' : 'notification'}}
+                <a class="clickable clear-all xsmall" ng-click="clearAllNotifications()">clear all</a>
+            </div>
+            <div class="panel-body">
+                <ul class="list-unstyled">
+                    <li class="clearfix" ng-repeat="notification in notifications">
+                        <apim-notification notification="notification" clear-function="clearNotification"></apim-notification>
+                    </li>
+                </ul>
+            </div>
+            <div class="ps-scrollbar-x-rail" style="left: 0px; bottom: 3px;"><div class="ps-scrollbar-x" style="left: 0px; width: 0px;"></div></div><div class="ps-scrollbar-y-rail" style="top: 0px; right: 0px;"><div class="ps-scrollbar-y" style="top: 0px; height: 0px;"></div></div></div>
+    </li>
+    <!-- profile drop -->
+    <li id="user-menu" class="profile-drop dropdown" uib-dropdown>
+        <a id="profile-toggle" class="text-default" href uib-dropdown-toggle>
+            <img ng-src="data:image/png;base64,{{currentUserModel.currentUser.base64pic}}" ng-if="currentUserModel.currentUser.base64pic.length > 0">
+            <img src="images/no-image-available.svg" ng-if="currentUserModel.currentUser.base64pic.length === 0 || currentUserModel.currentUser.base64pic === null">
+            <span></span>
+            <span class="text-default caret"></span>
+        </a>
+        <ul class="dropdown-menu dropdown-menu-right">
+            <li><a id="user-profile" ui-sref="root.user.profile"><span class="ion ion-person">&nbsp;&nbsp;</span>{{currentUserModel.currentUser.fullName}}</a></li>
+            <li class="divider"></li>
+            <li><a id="orgs" ui-sref="root.organizations"><span class="ion ion-ios-people">&nbsp;&nbsp;</span>Join Public Orgs</a></li>
+            <!--<li><a id="my-orgs" ui-sref="root.myOrganizations"><span class="ion ion-ios-people">&nbsp;&nbsp;</span>My Organizations</a></li>-->
+            <li class="divider"></li>
+            <li ng-if="currentUserModel.currentUser.admin"><a id="admin-page" ui-sref="root.administration.users"><span class="ion ion-gear-a">&nbsp;&nbsp;</span>Administration</a></li>
+            <li class="divider" ng-if="currentUserModel.currentUser.admin"></li>
+            <!--<li><a href="javascript:;" ng-click="togglePublisher()"><span class="ion ion-power">&nbsp;&nbsp;</span>Toggle PublisherMode</a></li>-->
+            <!--<li class="divider"></li>-->
+            <li><a id="logout" href ng-click="doLogOut()"><span class="ion ion-power">&nbsp;&nbsp;</span>Logout</a></li>
+        </ul>
+    </li>
+    <!-- #end profile-drop -->
+</ul>
+
