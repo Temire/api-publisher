@@ -4,24 +4,20 @@ const reqUtil = require('../util/request.util');
 const rp = require('request-promise');
 
 function exchangeToken(kcToken) {
-    return Promise.resolve({ statusCode: 200, body: kcToken });
+    const endpoint = config.gw.auth.uri + '/login/idp/exchange';
 
+    let requestOptions = {
+        method: 'POST',
+        uri: endpoint,
+        followRedirect : false,
+        simple: false,
+        resolveWithFullResponse: true,
+        json: true,
+        body: kcToken,
+        headers: reqUtil.defaultHeaders()
+    };
 
-    // TODO actual token exchange
-    // const endpoint = config.gw.auth.uri + '/login/token/exchange';
-    //
-    // let requestOptions = {
-    //     method: 'POST',
-    //     uri: endpoint,
-    //     followRedirect : false,
-    //     simple: false,
-    //     resolveWithFullResponse: true,
-    //     json: true,
-    //     body: kcToken,
-    //     headers: reqUtil.defaultHeaders()
-    // };
-    //
-    // return rp(requestOptions);
+    return rp(requestOptions);
 }
 
 

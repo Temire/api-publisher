@@ -10,11 +10,11 @@
         this.redirectToLogin = redirectToLogin;
 
         function logout() {
-            Auth.authz.logout();
+            Auth.get().authz.logout();
         }
 
         function redirectToLogin() {
-            Auth.authz.login();
+            Auth.get().authz.login();
         }
     }
 
