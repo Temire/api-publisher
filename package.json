@@ -1,7 +1,7 @@
 {
   "name": "api-market",
-  "version": "0.9.9",
-  "description": "AngularJS API Market",
+  "version": "0.9.9-1",
+  "description": "AngularJS API Publisher",
   "author": "Trust1Team",
   "private": true,
   "devDependencies": {
