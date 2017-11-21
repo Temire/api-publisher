@@ -5,7 +5,7 @@
         .service('contractService', contractService);
 
 
-    function contractService($q, $rootScope, AcceptContract, CancelContractRequest, ContractRequests, OrgIncomingPendingContracts,
+    function contractService($q, $rootScope, AcceptContract, ApplicationVersion, CancelContractRequest, ContractRequests, OrgIncomingPendingContracts,
                              OrgOutgoingPendingContracts, RejectContract, RequestContract, EVENTS) {
         this.accept = accept;
         this.break = breakContract;
@@ -17,8 +17,7 @@
         this.cancelRequest = cancelRequest;
         
         function accept(contract) {
-            console.log("Accept Contract:"+JSON.stringify(contract));
-            var acceptObj = {
+            let acceptObj = {
                 serviceOrgId: contract.serviceOrg,
                 serviceId: contract.serviceId,
                 serviceVersion: contract.serviceVersion,
@@ -46,10 +45,10 @@
         }
         
         function getPendingForSvc(orgId, svcId, versionId) {
-            var deferred = $q.defer();
+            let deferred = $q.defer();
             ContractRequests.query({ orgId: orgId }, function (requests) {
-                var contracts = [];
-                var applicationDetPromises = [];
+                let contracts = [];
+                let applicationDetPromises = [];
 
                 requests.forEach(function (req) {
                     if (req.serviceId === svcId && req.serviceVersion === versionId) {
@@ -70,7 +69,7 @@
         }
 
         function reject(contract) {
-            var rejectObj = {
+            let rejectObj = {
                 serviceOrgId: contract.serviceOrg,
                 serviceId: contract.serviceId,
                 serviceVersion: contract.serviceVersion,
@@ -83,7 +82,7 @@
         }
 
         function requestContract(svcOrgId, svcId, svcVersion, planId, appOrgId, appId, appVersion, termsAgreed) {
-            var requestObj = {
+            let requestObj = {
                 applicationOrg: appOrgId,
                 applicationId: appId,
                 applicationVersion: appVersion,
@@ -96,7 +95,7 @@
         }
         
         function cancelRequest(svcOrgId, svcId, svcVersion, appOrgId, appId, appVersion) {
-            var cancelObj = {
+            let cancelObj = {
                 organizationId: appOrgId,
                 applicationId: appId,
                 version: appVersion
