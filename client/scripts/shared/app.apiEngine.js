@@ -321,6 +321,15 @@
         .factory('ServiceVersionContracts', function ($resource, CONFIG) {
             return $resource('proxy/organizations/:orgId/services/:svcId/versions/:versionId/contracts');
         })
+           .factory('ServiceVersionUpstream', function($resource) {
+               return $resource('proxy/organizations/:orgId/services/:svcId/versions/:versionId/upstreams')
+           })
+           .factory('ServiceVersionUpstreamAdd', function($resource) {
+               return $resource('proxy/organizations/:orgId/services/:svcId/versions/:versionId/upstreams/add')
+           })
+           .factory('ServiceVersionUpstreamRemove', function($resource) {
+               return $resource('proxy/organizations/:orgId/services/:svcId/versions/:versionId/upstreams/remove')
+           })
         .factory('ServiceEndpoint', function ($resource, CONFIG) {
             return $resource('proxy/organizations/:orgId/services/:svcId/versions/:versionId/endpoint');
         })

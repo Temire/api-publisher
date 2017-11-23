@@ -11,25 +11,93 @@
   </div>
   <div class="col-sm-12 style-placeholders">
     <form class="form form-horizontal" name="impForm" data-field="form">
+
       <div class="form-group">
-        <label class="col-md-3 control-label">API Endpoint</label>
-        <div class="col-md-7">
-          <input id="endpoint" ng-model="updatedService.endpoint" class="form-control" type="url"  name="implementation" placeholder="ex. http://path.to/your/service"
-                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="implementationRegex" validate-on-timeout>
-          <p class="text-danger xsmall" ng-show="(impForm.implementation.$error.url || impForm.implementation.$error.pattern) && impForm.implementation.$timedout">This is not a valid endpoint url. Please check for errors.</p>
-        </div>
-      </div>
-      <div class="form-group">
-        <label class="col-md-3 control-label">API Type</label>
+        <label class="col-md-3 control-label">API Scheme</label>
         <div class="col-md-7">
           <div class="btn-group dropdown" uib-dropdown>
             <button type="button" class="btn btn-default btn-sm dropdown-toggle" uib-dropdown-toggle ng-disabled="isPublished || !User.isAuthorizedFor('svcEdit')">
-              {{updatedService.endpointType.toUpperCase()}}<span class="caret"></span>
+              {{updatedService.upstreamScheme.toUpperCase()}}<span class="caret"></span>
             </button>
             <ul class="dropdown-menu dropdown-menu-left">
-              <li ng-repeat="type in typeOptions" ng-click="selectType(type)"><a>{{type.toUpperCase()}}</a></li>
+              <li ng-click="selectScheme('HTTP')"><a>HTTP</a></li>
+              <li ng-click="selectScheme('HTTPS')"><a>HTTPS</a></li>
             </ul>
           </div>
+        </div>
+      </div>
+
+      <div class="form-group">
+        <label class="col-md-3 control-label">API Context Path</label>
+        <div class="col-md-7">
+          <input id="path" ng-model="updatedService.upstreamPath" class="form-control" type="text"  name="path" placeholder="ex. /path/to/your/service"
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="contextPathRegex" validate-on-timeout>
+          <p class="text-danger xsmall" ng-show="impForm.path.$error.pattern && impForm.path.$timedout">This is not a valid context path. Please check for errors.</p>
+        </div>
+      </div>
+
+      <div class="form-group" data-ng-repeat="target in targets">
+        <label class="col-md-3 control-label" data-ng-if="$index === 0">API Targets</label>
+        <label class="col-md-3 control-label" data-ng-if="$index !== 0"></label>
+        <div class="col-md-5">
+          <input id="target{{$index}}" ng-model="target.target" class="form-control" type="text"  name="target{{$index}}" placeholder="ex. your.service.org"
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="domainRegex" validate-on-timeout>
+          <p class="text-danger xsmall" ng-show="impForm['target' + $index].$error.pattern && impForm['target' + $index].$timedout">This is not a valid target host. Please check for errors.</p>
+        </div>
+        <div class="col-md-2">
+          <div class="input-group">
+            <input id="targetPort{{$index}}" ng-model="target.port" class="form-control" type="number"  name="targetPort{{$index}}" placeholder="port"
+                   ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
+            <span class="input-group-btn">
+              <button class="btn btn-secondary" type="button" ng-click="removeTarget(target)"><i class="fa fa-times text-danger"></i></button>
+            </span>
+          </div>
+          <p class="text-danger xsmall" ng-show="impForm['targetPort' + $index].$error.pattern && impForm['targetPort' + $index].$timedout">This is not a valid target port. Please check for errors.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-7 col-md-offset-3">
+          <button ng-click="addTarget()" class="btn btn-primary btn-sm">Add Target</button>
+        </div>
+      </div>
+
+      <!--<div class="form-group">-->
+        <!--<label class="col-md-3 control-label">API Type</label>-->
+        <!--<div class="col-md-7">-->
+          <!--<div class="btn-group dropdown" uib-dropdown>-->
+            <!--<button type="button" class="btn btn-default btn-sm dropdown-toggle" uib-dropdown-toggle ng-disabled="isPublished || !User.isAuthorizedFor('svcEdit')">-->
+              <!--{{updatedService.endpointType.toUpperCase()}}<span class="caret"></span>-->
+            <!--</button>-->
+            <!--<ul class="dropdown-menu dropdown-menu-left">-->
+              <!--<li ng-repeat="type in typeOptions" ng-click="selectType(type)"><a>{{type.toUpperCase()}}</a></li>-->
+            <!--</ul>-->
+          <!--</div>-->
+        <!--</div>-->
+      <!--</div>-->
+
+
+      <div class="form-group" style="margin-top: 50px;">
+        <label class="col-md-3 control-label">Upstream Connect Timeout</label>
+        <div class="col-md-7">
+          <input id="connTimeout" ng-model="updatedService.upstreamConnectTimeout" class="form-control" type="number" name="connTimeout" placeholder="connection timeout in milliseconds"
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
+          <p class="text-danger xsmall" ng-show="(impForm.connTimeout.$error.number || impForm.connTimeout.$error.pattern) && impForm.connTimeout.$timedout">This is not a valid timeout value. Please check for errors.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label">Upstream Send Timeout</label>
+        <div class="col-md-7">
+          <input id="sendTimeout" ng-model="updatedService.upstreamSendTimeout" class="form-control" type="number"  name="sendTimeout" placeholder="send timeout in milliseconds"
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
+          <p class="text-danger xsmall" ng-show="(impForm.sendTimeout.$error.number || impForm.sendTimeout.$error.pattern) && impForm.sendTimeout.$timedout">This is not a valid timeout value. Please check for errors.</p>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="col-md-3 control-label">Upstream Read Timeout</label>
+        <div class="col-md-7">
+          <input id="readTimeout" ng-model="updatedService.upstreamReadTimeout" class="form-control" type="number"  name="readTimeout" placeholder="read timeout in milliseconds"
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
+          <p class="text-danger xsmall" ng-show="(impForm.readTimeout.$error.number || impForm.readTimeout.$error.pattern) && impForm.readTimeout.$timedout">This is not a valid timeout value. Please check for errors.</p>
         </div>
       </div>
       <!--<div class="form-group">-->

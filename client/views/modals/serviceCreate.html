@@ -25,15 +25,24 @@
                     <p class="text-danger xsmall" ng-show="serviceForm.version.$error.pattern && serviceForm.version.$timedout">Only numeric characters are allowed.</p>
                     <p class="text-muted xsmall">Version the service will start out as. Usually v1 for new services</p>
                 </div>
-                <div class="col-md-8 col-sm-12 col-xs-9 mt20">
+                <div class="col-md-8 col-sm-12 col-xs-9 mt20" data-ng-init="ctrl.service.basepath = [{ val: ''}]">
                     <label class="control-label text-primary">Service Identifier</label>
-                    <input type="text" name="basepath" class="form-control" maxlength="20" placeholder="Ex.: yourservice" ng-model="ctrl.service.basepath" required ng-pattern="regex.BASEPATH" validate-on-timeout>
-                    <p class="text-danger xsmall" ng-show="serviceForm.basepath.$error.required && serviceForm.basepath.$timedout" ng-if="serviceForm.basepath.$touched">Identifier is required.</p>
-                    <p class="text-danger xsmall" ng-show="serviceForm.basepath.$error.pattern && serviceForm.basepath.$timedout">Allowed characters: Only lowercase letters (a-z) and dashes. No spaces, slashes, etc.</p>
+                    <span style="margin-left: 20px;" class="btn btn-primary btn-xs" data-ng-click="addPath()">Add</span>
+                    <div data-ng-repeat="path in ctrl.service.basepath">
+                        <div class="input-group">
+                            <input type="text" name="basepath{{$index}}" class="form-control" maxlength="20" placeholder="Ex.: yourservice" ng-model="path.val" required ng-pattern="regex.BASEPATH" validate-on-timeout>
+                            <span class="input-group-btn">
+                                <button class="btn btn-secondary" type="button" ng-click="removePath(path)"><i class="fa fa-times text-danger"></i></button>
+                            </span>
+                        </div>
+                        <p class="text-danger xsmall" ng-show="serviceForm['basepath' + $index].$error.required && serviceForm['basepath' + $index].$timedout" ng-if="serviceForm['basepath' + $index].$touched">Identifier is required.</p>
+                        <p class="text-danger xsmall" ng-show="serviceForm['basepath' + $index].$error.pattern && serviceForm['basepath' + $index].$timedout">Allowed characters: Only lowercase letters (a-z) and dashes. No spaces, slashes, etc.</p>
+                    </div>
                     <p class="text-muted xsmall">
-                        Must be unique within the organization. Will be a part of the path on the API gateway where your service can be reached.<br>For this service, the path would be as follows:<br>
-                        <span class="text-bold">https://{{configVars.KONG.HOST}}/{{selectedBranding ? selectedBranding.id.toLowerCase() : org.id.toLowerCase()}}/{{ctrl.service.basepath? ctrl.service.basepath : '[yourservice]'}}/{{ctrl.service.initialVersion ? 'v' + ctrl.service.initialVersion : '[version]'}}</span>
+                        Each identifier must be unique within the organization. Will be a part of the path on the API gateway where your service can be reached.<br>For this service, the {{ ctrl.service.basepath.length > 1 ? 'paths': 'path'}} would be as follows:<br>
+                        <span data-ng-repeat="path in ctrl.service.basepath" class="text-bold">https://{{configVars.KONG.HOST}}/{{selectedBranding ? selectedBranding.id.toLowerCase() : org.id.toLowerCase()}}/{{ path.val ? path.val : '[yourservice]'}}/{{ctrl.service.initialVersion ? 'v' + ctrl.service.initialVersion : '[version]'}}<br></span>
                     </p>
+
                 </div>
                 <div class="col-md-4 mt20" ng-if="branding.length > 0">
                     <label class="control-label text-primary">Service Branding</label>
@@ -112,5 +121,5 @@
 </div>
 <div class="modal-footer">
     <button class="btn btn-default ml15" ng-click="modalClose()">Cancel</button>
-    <button class="btn btn-primary" ng-click="createService(ctrl.service, ctrl.categories)" ng-disabled="serviceForm.$invalid || !imageService.image.isValid">Create Service</button>
+    <button class="btn btn-primary" ng-click="createService(ctrl.service, ctrl.categories)" ng-disabled="serviceForm.$invalid || ctrl.service.basepath.length === 0 || !imageService.image.isValid">Create Service</button>
 </div>
