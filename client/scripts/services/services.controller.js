@@ -268,7 +268,7 @@
         };
         svcScreenModel.updateService(svcData);
         $scope.contextPathRegex = REGEX.CONTEXTPATH;
-        $scope.domainRegex = REGEX.DOMAIN;
+        $scope.domainRegex = REGEX.DOMAIN_OR_IP;
         // $scope.implementationRegex = REGEX.IMPLEMENTATION;
         $scope.timeoutRegex = REGEX.POSITIVE_INTEGER;
         $scope.version = svcScreenModel.service;
@@ -349,7 +349,7 @@
                             console.log($scope.tabStatus);
                             // update upstreams
                             toastService.createToast(TOAST_TYPES.SUCCESS,
-                                'Endpoint for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
+                                'Implementation settings for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
                                 true);
                             $scope.isDirty = false;
                             if ($scope.tabStatus.hasImplementation) {
