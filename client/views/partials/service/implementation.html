@@ -31,7 +31,7 @@
         <label class="col-md-3 control-label">API Context Path</label>
         <div class="col-md-7">
           <input id="path" ng-model="updatedService.upstreamPath" class="form-control" type="text"  name="path" placeholder="ex. /path/to/your/service"
-                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="contextPathRegex" validate-on-timeout>
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="contextPathRegex" validate-on-timeout required>
           <p class="text-danger xsmall" ng-show="impForm.path.$error.pattern && impForm.path.$timedout">This is not a valid context path. Please check for errors.</p>
         </div>
       </div>
@@ -41,13 +41,13 @@
         <label class="col-md-3 control-label" data-ng-if="$index !== 0"></label>
         <div class="col-md-5">
           <input id="target{{$index}}" ng-model="target.target" class="form-control" type="text"  name="target{{$index}}" placeholder="ex. your.service.org"
-                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="domainRegex" validate-on-timeout>
+                 ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="domainRegex" validate-on-timeout required>
           <p class="text-danger xsmall" ng-show="impForm['target' + $index].$error.pattern && impForm['target' + $index].$timedout">This is not a valid target host. Please check for errors.</p>
         </div>
         <div class="col-md-2">
           <div class="input-group">
             <input id="targetPort{{$index}}" ng-model="target.port" class="form-control" type="number"  name="targetPort{{$index}}" placeholder="port"
-                   ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
+                   ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout required>
             <span class="input-group-btn">
               <button class="btn btn-secondary" type="button" ng-click="removeTarget(target)"><i class="fa fa-times text-danger"></i></button>
             </span>
@@ -77,7 +77,7 @@
 
 
       <div class="form-group" style="margin-top: 50px;">
-        <label class="col-md-3 control-label">Upstream Connect Timeout</label>
+        <label class="col-md-3 control-label">Connect Timeout (ms)</label>
         <div class="col-md-7">
           <input id="connTimeout" ng-model="updatedService.upstreamConnectTimeout" class="form-control" type="number" name="connTimeout" placeholder="connection timeout in milliseconds"
                  ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
@@ -85,7 +85,7 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-3 control-label">Upstream Send Timeout</label>
+        <label class="col-md-3 control-label">Send Timeout (ms)</label>
         <div class="col-md-7">
           <input id="sendTimeout" ng-model="updatedService.upstreamSendTimeout" class="form-control" type="number"  name="sendTimeout" placeholder="send timeout in milliseconds"
                  ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
@@ -93,13 +93,14 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="col-md-3 control-label">Upstream Read Timeout</label>
+        <label class="col-md-3 control-label">Read Timeout (ms)</label>
         <div class="col-md-7">
           <input id="readTimeout" ng-model="updatedService.upstreamReadTimeout" class="form-control" type="number"  name="readTimeout" placeholder="read timeout in milliseconds"
                  ng-disabled="!User.isAuthorizedFor('svcEdit')" ng-pattern="timeoutRegex" validate-on-timeout>
           <p class="text-danger xsmall" ng-show="(impForm.readTimeout.$error.number || impForm.readTimeout.$error.pattern) && impForm.readTimeout.$timedout">This is not a valid timeout value. Please check for errors.</p>
         </div>
       </div>
+
       <!--<div class="form-group">-->
         <!--<label class="col-md-3 control-label">API Security</label>-->
         <!--<div class="col-md-7">-->
@@ -119,9 +120,9 @@
 <div class="col-sm-12 mt20" ng-if="!isPublished && User.isAuthorizedFor('svcEdit')">
   <hr>
   <button ng-disabled="!isDirty" ng-click="reset()" class="btn btn-default btn-sm">Cancel</button>
-  <button ng-disabled="!isDirty || !isValid" ng-click="saveService()" class="btn btn-primary btn-sm">Save</button>
+  <button ng-disabled="!isDirty || !isValid || !impForm.$valid" ng-click="saveService()" class="btn btn-primary btn-sm">Save</button>
 </div>
 <div class="col-sm-12 mt20" ng-if="isPublished && User.isAuthorizedFor('svcEdit')">
   <hr>
-  <button ng-disabled="!isDirty || !isValid" ng-click="saveService()" class="btn btn-primary btn-sm">Update</button>
+  <button ng-disabled="!isDirty || !isValid || !impForm.$valid" ng-click="saveService()" class="btn btn-primary btn-sm">Update</button>
 </div>
