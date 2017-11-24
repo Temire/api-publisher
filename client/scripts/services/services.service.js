@@ -275,7 +275,9 @@
 
         this.updateService = function (newSvc) {
             this.service = newSvc;
-            this.tabStatus.hasImplementation = newSvc.endpoint !== null;
+            this.tabStatus.hasImplementation = !!(newSvc.upstreamScheme && newSvc.upstreamScheme.length &&
+                                                  newSvc.upstreamPath && newSvc.upstreamPath.length &&
+                                                  newSvc.upstreamTargets && newSvc.upstreamTargets.length);
         };
 
         this.setHasImplementation = function (bool) {
