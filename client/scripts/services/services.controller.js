@@ -148,7 +148,7 @@
 
         function editDetails() {
             service.editDetails($scope.serviceVersion.service.organization.id, $scope.serviceVersion.service.id).then(function (reply) {
-                if (reply != 'canceled') {
+                if (reply !== 'canceled') {
                     toastService.info('Details for <b>' + $scope.serviceVersion.service.name + '</b> have been updated.');
                     // todo avoid forced reload?
                     $state.forceReload();
@@ -257,8 +257,6 @@
         } else {
             $scope.targets = [{ target: '', port: 8000 }];
         }
-        console.log(existingTargets);
-        console.log(targets);
         $scope.updatedService = {
             gateways: [{gatewayId: 'KongGateway'}],
             upstreamConnectTimeout: $scope.serviceVersion.upstreamConnectTimeout || 60000,
@@ -283,15 +281,15 @@
         };
 
         function checkValid() {
-            $scope.isValid = true;
-
-            // let valid = true;
-            // if (!$scope.updatedService.endpointType || angular.isUndefined($scope.updatedService.endpoint)) {
-            //     valid = false;
-            // } else if ($scope.updatedService.endpoint === null || $scope.updatedService.endpoint.length === 0) {
-            //     valid = false;
-            // }
-            // $scope.isValid = valid;
+            let valid = true;
+            // needs scheme
+            if (!$scope.updatedService.upstreamScheme || angular.isUndefined($scope.updatedService.upstreamScheme)) { valid = false; }
+            // needs context path
+            if (!$scope.updatedService.upstreamPath || angular.isUndefined($scope.updatedService.upstreamPath)) { valid = false; }
+            // needs at least 1 target + port
+            if (!$scope.targets || !$scope.targets.length) { valid = false; }
+            // timeouts?
+            $scope.isValid = valid;
         }
 
         $scope.$watch('updatedService', function () {
@@ -338,7 +336,7 @@
             _.forEach(existingTargets, target => {
                 removePromises.push(service.removeVersionUpstream($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, target));
             });
-            $q.all(removePromises).then((results) => {
+            $q.all(removePromises).then(() => {
                 // add new targets
                 let addPromises = [];
                 _.forEach($scope.targets, target => {
@@ -346,10 +344,10 @@
                 });
                 return $q.all(addPromises).then(results => {
                     // save service
-                    service.updateServiceVersion($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, $scope.updatedService).then(
-                        function (reply) {
+                    return service.updateServiceVersion($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, $scope.updatedService).then(
+                        function () {
+                            console.log($scope.tabStatus);
                             // update upstreams
-                            console.log(reply);
                             toastService.createToast(TOAST_TYPES.SUCCESS,
                                 'Endpoint for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
                                 true);
@@ -360,11 +358,11 @@
                                 svcScreenModel.setHasImplementation(true);
                                 $state.go('^.definition');
                             }
-                        }, function (error) {
-                            toastService.createErrorToast(error, 'Could not update implementation endpoint.');
                         });
                 });
-            })
+            }).catch(error => {
+                toastService.createErrorToast(error, 'Could not update service implementation settings.');
+            });
 
 
 
