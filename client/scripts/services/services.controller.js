@@ -133,7 +133,7 @@
 
         function checkNeedsReadMe() {
             alertService.resetAllAlerts();
-            var needsReadMe = !$scope.serviceVersion.autoAcceptContracts &&
+            let needsReadMe = !$scope.serviceVersion.autoAcceptContracts &&
                               (!$scope.serviceVersion.readme || $scope.serviceVersion.readme.length === 0);
             if (needsReadMe) {
                 alertService.addAlert(ALERT_TYPES.INFO,
@@ -259,10 +259,10 @@
         }
         $scope.updatedService = {
             gateways: [{gatewayId: 'KongGateway'}],
+            endpointType: 'rest',
             upstreamConnectTimeout: $scope.serviceVersion.upstreamConnectTimeout || 60000,
             upstreamReadTimeout: $scope.serviceVersion.upstreamReadTimeout || 60000,
             upstreamSendTimeout: $scope.serviceVersion.upstreamSendTimeout || 60000,
-            // TODO set to existing values if found
             upstreamScheme: $scope.serviceVersion.upstreamScheme || 'HTTPS',
             upstreamPath: $scope.serviceVersion.upstreamPath || '',
         };
@@ -346,7 +346,6 @@
                     // save service
                     return service.updateServiceVersion($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, $scope.updatedService).then(
                         function () {
-                            console.log($scope.tabStatus);
                             // update upstreams
                             toastService.createToast(TOAST_TYPES.SUCCESS,
                                 'Implementation settings for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
@@ -370,6 +369,7 @@
         $scope.selectScheme = selectScheme;
         $scope.addTarget = addTarget;
         $scope.removeTarget = removeTarget;
+
 
         function addTarget() {
             $scope.targets.push({ target: '', port: 8000 });
