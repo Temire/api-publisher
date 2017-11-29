@@ -408,6 +408,11 @@
                         svcData: function (ServiceVersion, organizationId, serviceId, versionId) {
                             return ServiceVersion.get(
                                 {orgId: organizationId, svcId: serviceId, versionId: versionId}).$promise;
+                        },
+                        targets: function(service, organizationId, serviceId, versionId) {
+                            return service.getVersionUpstream(organizationId, serviceId, versionId).then(res => {
+                                return res.targets;
+                            });
                         }
                     },
                     controller: 'ServiceImplementationCtrl'

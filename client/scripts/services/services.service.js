@@ -6,7 +6,9 @@
         .service('svcScreenModel', svcScreenModel)
         .service('svcTab', svcTab);
 
-    function service($q, $uibModal, Service, ServiceEndpoint, ServiceTerms, ServiceVersion, ServiceVersionDefinition, Categories, DefaultTerms, BrandingService, _) {
+    function service($q, $uibModal, Service, ServiceEndpoint, ServiceTerms, ServiceVersion, ServiceVersionDefinition,
+                     ServiceVersionUpstream, ServiceVersionUpstreamAdd, ServiceVersionUpstreamRemove,
+                     Categories, DefaultTerms, BrandingService, _) {
         this.deleteService = deleteService;
         this.deleteServiceVersion = deleteServiceVersion;
         this.deprecateServiceVersion = deprecateServiceVersion;
@@ -16,6 +18,9 @@
         this.getDefinition = getDefinition;
         this.getEndpoint = getEndpoint;
         this.getVersion = getVersion;
+        this.addVersionUpstream = addVersionUpstream;
+        this.getVersionUpstream = getVersionUpstream;
+        this.removeVersionUpstream = removeVersionUpstream;
         this.publishServiceVersion = publishServiceVersion;
         this.retireServiceVersion = retireServiceVersion;
         this.updateDefinition = updateDefinition;
@@ -179,6 +184,18 @@
             return ServiceVersion.get({ orgId: orgId, svcId: svcId, versionId: versionId }).$promise;
         }
 
+        function addVersionUpstream(orgId, svcId, versionId, target) {
+            return ServiceVersionUpstreamAdd.save({ orgId, svcId, versionId }, target).$promise
+        }
+
+        function getVersionUpstream(orgId, svcId, versionId) {
+            return ServiceVersionUpstream.get({ orgId, svcId, versionId }).$promise;
+        }
+
+        function removeVersionUpstream(orgId, svcId, versionId, target) {
+            return ServiceVersionUpstreamRemove.save({ orgId, svcId, versionId }, target).$promise;
+        }
+
         function publishServiceVersion(orgId, svcId, versionId) {
             return ServiceVersion.get({ orgId: orgId, svcId: svcId, versionId: versionId }).$promise.then(function (reply) {
                 var modalInstance = $uibModal.open({
@@ -258,7 +275,9 @@
 
         this.updateService = function (newSvc) {
             this.service = newSvc;
-            this.tabStatus.hasImplementation = newSvc.endpoint !== null;
+            this.tabStatus.hasImplementation = !!(newSvc.upstreamScheme && newSvc.upstreamScheme.length &&
+                                                  newSvc.upstreamPath && newSvc.upstreamPath.length &&
+                                                  newSvc.upstreamTargets && newSvc.upstreamTargets.length);
         };
 
         this.setHasImplementation = function (bool) {

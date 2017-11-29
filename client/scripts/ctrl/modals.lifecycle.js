@@ -60,7 +60,7 @@
             function ($scope, $filter, $uibModal, $state, $stateParams, flowFactory, alertService, service,
                       imageService, orgScreenModel, toastService, REGEX, TOAST_TYPES, CONFIG, Service, admin, branding,
                       BrandingService, _) {
-
+                let controller = this;
                 $scope.admin = admin;
                 $scope.org = orgScreenModel.organization;
                 $scope.configVars = CONFIG;
@@ -76,12 +76,15 @@
                 $scope.createService = createService;
                 $scope.filterCategories = filterCategories;
                 $scope.modalClose = modalClose;
+                $scope.addPath = addPath;
+                $scope.removePath = removePath;
                 $scope.resetImage = resetImage;
                 $scope.selectBranding = selectBranding;
                 init();
 
 
                 function init() {
+
                     alertService.resetAllAlerts();
                     imageService.clear();
 
@@ -90,6 +93,14 @@
                     service.getAllCategories().then(function (reply) {
                         $scope.currentCategories = reply;
                     });
+                }
+
+                function addPath() {
+                    controller.service.basepath.push({ val: '' });
+                }
+
+                function removePath(path) {
+                    _.remove(controller.service.basepath, path);
                 }
 
                 function readFile($file) {
@@ -118,8 +129,9 @@
                     } else {
                         newSvcObject.base64logo = '';
                     }
-                    var basePathStart = '/';
-                    newSvcObject.basepath = basePathStart.concat(svc.basepath);
+                    // var basePathStart = '/';
+                    // newSvcObject.basepath = basePathStart.concat(svc.basepath);
+                    newSvcObject.basepath = _.map(svc.basepath, 'val');
                     newSvcObject.categories = cats;
 
                     Service.save({orgId: $stateParams.orgId}, newSvcObject, function (newSvc) {
@@ -152,7 +164,7 @@
 
                 function filterBrandings() {
                     var filtered = _.sortBy(_.filter(branding, function (b) {
-                        if ($scope.selectedBranding) return b.id != $scope.selectedBranding.id;
+                        if ($scope.selectedBranding) return b.id !== $scope.selectedBranding.id;
                         else return true;
                     }), 'name');
 

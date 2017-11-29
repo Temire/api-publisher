@@ -2,21 +2,21 @@
     'use strict';
 
     angular.module('app.service')
-        .controller('ServiceCtrl', serviceCtrl)
-        .controller('ServiceActivityCtrl', serviceActivityCtrl)
-        .controller('ServiceImplementationCtrl', serviceImplCtrl)
-        .controller('ServiceDefinitionCtrl', serviceDefinitionCtrl)
-        .controller('ServiceEditCtrl', serviceEditCtrl)
-        .controller('ServicePendingContractsCtrl', servicePendingCtrl)
-        .controller('ServicePlansCtrl', servicePlansCtrl)
-        .controller('ServiceScopeCtrl', serviceScopeCtrl)
-        .controller('ServicePoliciesCtrl', servicePoliciesCtrl)
-        .controller('ServiceTermsCtrl', serviceTermsCtrl)
-        .controller('ServiceReadmeCtrl', serviceReadmeCtrl)
-        .controller('ServiceAnnouncementsCtrl', serviceAnnouncementsCtrl)
-        .controller('ServiceSupportCtrl', serviceSupportCtrl)
-        .controller('ServiceOverviewCtrl', serviceOverviewCtrl)
-        .controller('ServiceMetricsController', serviceMetricsCtrl);
+           .controller('ServiceCtrl', serviceCtrl)
+           .controller('ServiceActivityCtrl', serviceActivityCtrl)
+           .controller('ServiceImplementationCtrl', serviceImplCtrl)
+           .controller('ServiceDefinitionCtrl', serviceDefinitionCtrl)
+           .controller('ServiceEditCtrl', serviceEditCtrl)
+           .controller('ServicePendingContractsCtrl', servicePendingCtrl)
+           .controller('ServicePlansCtrl', servicePlansCtrl)
+           .controller('ServiceScopeCtrl', serviceScopeCtrl)
+           .controller('ServicePoliciesCtrl', servicePoliciesCtrl)
+           .controller('ServiceTermsCtrl', serviceTermsCtrl)
+           .controller('ServiceReadmeCtrl', serviceReadmeCtrl)
+           .controller('ServiceAnnouncementsCtrl', serviceAnnouncementsCtrl)
+           .controller('ServiceSupportCtrl', serviceSupportCtrl)
+           .controller('ServiceOverviewCtrl', serviceOverviewCtrl)
+           .controller('ServiceMetricsController', serviceMetricsCtrl);
 
 
     function serviceCtrl($scope, $state, $stateParams, $uibModal, orgData, orgScreenModel, support,
@@ -76,9 +76,9 @@
             // Check for pending contracts if the user is authorized to see them
             if ($scope.User.isAuthorizedFor('svcEdit')) {
                 contractService.getPendingForSvc($stateParams.orgId, $stateParams.svcId, $stateParams.versionId)
-                    .then(function (contracts) {
-                        $scope.pendingContracts = contracts;
-                    })
+                               .then(function (contracts) {
+                                   $scope.pendingContracts = contracts;
+                               })
             } else {
                 $scope.pendingContracts = [];
             }
@@ -133,8 +133,8 @@
 
         function checkNeedsReadMe() {
             alertService.resetAllAlerts();
-            var needsReadMe = !$scope.serviceVersion.autoAcceptContracts &&
-                (!$scope.serviceVersion.readme || $scope.serviceVersion.readme.length === 0);
+            let needsReadMe = !$scope.serviceVersion.autoAcceptContracts &&
+                              (!$scope.serviceVersion.readme || $scope.serviceVersion.readme.length === 0);
             if (needsReadMe) {
                 alertService.addAlert(ALERT_TYPES.INFO,
                     '<b>Please provide a README file!</b><br><span class="small text-light">You have indicated that you want to manually manage the' +
@@ -148,7 +148,7 @@
 
         function editDetails() {
             service.editDetails($scope.serviceVersion.service.organization.id, $scope.serviceVersion.service.id).then(function (reply) {
-                if (reply != 'canceled') {
+                if (reply !== 'canceled') {
                     toastService.info('Details for <b>' + $scope.serviceVersion.service.name + '</b> have been updated.');
                     // todo avoid forced reload?
                     $state.forceReload();
@@ -225,11 +225,11 @@
 
         function filterBrandings() {
             var filtered = _.sortBy(_.filter(branding, function (b) {
-                if ($scope.svc.selectedBranding) return b.id != $scope.svc.selectedBranding.id;
+                if ($scope.svc.selectedBranding) return b.id !== $scope.svc.selectedBranding.id;
                 else return true;
             }), 'name');
 
-            if ($scope.svc.selectedBranding && $scope.svc.selectedBranding.name != $scope.noBrandingText) $scope.branding = _.concat([{name: $scope.noBrandingText }], filtered);
+            if ($scope.svc.selectedBranding && $scope.svc.selectedBranding.name !== $scope.noBrandingText) $scope.branding = _.concat([{name: $scope.noBrandingText }], filtered);
             else $scope.branding = filtered;
         }
 
@@ -248,16 +248,29 @@
     }
 
 
-    function serviceImplCtrl($scope, $state, $stateParams, toastService, TOAST_TYPES, REGEX, svcScreenModel, service, svcData) {
+    function serviceImplCtrl($q, $scope, $state, $stateParams, toastService, TOAST_TYPES, REGEX, svcScreenModel, service, svcData, targets, _) {
 
         $scope.serviceVersion = svcData;
+        let existingTargets = angular.copy(targets);
+        if (targets && targets.length) {
+            $scope.targets = targets;
+        } else {
+            $scope.targets = [{ target: '', port: 8000 }];
+        }
         $scope.updatedService = {
+            gateways: [{gatewayId: 'KongGateway'}],
             endpointType: 'rest',
-            endpoint: $scope.serviceVersion.endpoint,
-            gateways: [{gatewayId: 'KongGateway'}]
+            upstreamConnectTimeout: $scope.serviceVersion.upstreamConnectTimeout || 60000,
+            upstreamReadTimeout: $scope.serviceVersion.upstreamReadTimeout || 60000,
+            upstreamSendTimeout: $scope.serviceVersion.upstreamSendTimeout || 60000,
+            upstreamScheme: $scope.serviceVersion.upstreamScheme || 'HTTPS',
+            upstreamPath: $scope.serviceVersion.upstreamPath || '',
         };
         svcScreenModel.updateService(svcData);
-        $scope.implementationRegex = REGEX.IMPLEMENTATION;
+        $scope.contextPathRegex = REGEX.CONTEXTPATH;
+        $scope.domainRegex = REGEX.DOMAIN_OR_IP;
+        // $scope.implementationRegex = REGEX.IMPLEMENTATION;
+        $scope.timeoutRegex = REGEX.POSITIVE_INTEGER;
         $scope.version = svcScreenModel.service;
 
         $scope.typeOptions = ['rest'];
@@ -267,51 +280,109 @@
             $scope.updatedService.endpointType = newType;
         };
 
-        var checkValid = function () {
-            var valid = true;
-            if (!$scope.updatedService.endpointType || angular.isUndefined($scope.updatedService.endpoint)) {
-                valid = false;
-            } else if ($scope.updatedService.endpoint === null || $scope.updatedService.endpoint.length === 0) {
-                valid = false;
-            }
+        function checkValid() {
+            let valid = true;
+            // needs scheme
+            if (!$scope.updatedService.upstreamScheme || angular.isUndefined($scope.updatedService.upstreamScheme)) { valid = false; }
+            // needs context path
+            if (!$scope.updatedService.upstreamPath || angular.isUndefined($scope.updatedService.upstreamPath)) { valid = false; }
+            // needs at least 1 target + port
+            if (!$scope.targets || !$scope.targets.length) { valid = false; }
+            // timeouts?
             $scope.isValid = valid;
-        };
+        }
 
-        $scope.$watch('updatedService', function (newValue) {
+        $scope.$watch('updatedService', function () {
+            checkChanges();
+        }, true);
+
+        $scope.$watch('targets', function () {
+            checkChanges();
+        }, true);
+
+        function checkChanges() {
             if ($scope.version) {
-                var dirty = false;
-                if (newValue.endpoint !== $scope.version.endpoint ||
-                    newValue.endpointType !== $scope.version.endpointType) {
+                let dirty = false;
+                if ($scope.updatedService.upstreamScheme !== $scope.version.upstreamScheme ||
+                    $scope.updatedService.upstreamPath !== $scope.version.upstreamPath ||
+                    $scope.updatedService.upstreamConnectTimeout !== $scope.version.upstreamConnectTimeout ||
+                    $scope.updatedService.upstreamReadTimeout !== $scope.version.upstreamReadTimeout ||
+                    $scope.updatedService.upstreamSendTimeout !== $scope.version.upstreamSendTimeout ||
+                    !_.isEqual($scope.targets, existingTargets)) {
                     dirty = true;
                 }
                 checkValid();
                 $scope.isDirty = dirty;
             }
-        }, true);
+        }
 
         $scope.reset = function () {
-            $scope.updatedService.endpoint = $scope.version.endpoint;
-            $scope.updatedService.endpointType = $scope.version.endpointType;
+            $scope.updatedService.upstreamConnectTimeout = $scope.version.upstreamConnectTimeout || 60000;
+            $scope.updatedService.upstreamReadTimeout = $scope.serviceVersion.upstreamReadTimeout || 60000;
+            $scope.updatedService.upstreamSendTimeout = $scope.serviceVersion.upstreamSendTimeout || 60000;
+            $scope.updatedService.upstreamScheme = $scope.serviceVersion.upstreamScheme || 'HTTPS';
+            $scope.updatedService.upstreamPath=  $scope.serviceVersion.upstreamPath || '';
+            if (existingTargets && existingTargets.length) {
+                $scope.targets = angular.copy(existingTargets);
+            } else {
+                $scope.targets = [{ target: '', port: 8000 }];
+            }
             $scope.isDirty = false;
         };
 
         $scope.saveService = function () {
-            service.updateServiceVersion($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, $scope.updatedService).then(
-                function (reply) {
-                    toastService.createToast(TOAST_TYPES.SUCCESS,
-                        'Endpoint for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
-                        true);
-                    $scope.isDirty = false;
-                    if ($scope.tabStatus.hasImplementation) {
-                        $state.forceReload();
-                    } else {
-                        svcScreenModel.setHasImplementation(true);
-                        $state.go('^.definition');
-                    }
-                }, function (error) {
-                    toastService.createErrorToast(error, 'Could not update implementation endpoint.');
+            // remove all existing targets
+            let removePromises = [];
+            _.forEach(existingTargets, target => {
+                removePromises.push(service.removeVersionUpstream($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, target));
+            });
+            $q.all(removePromises).then(() => {
+                // add new targets
+                let addPromises = [];
+                _.forEach($scope.targets, target => {
+                    addPromises.push(service.addVersionUpstream($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, target));
                 });
+                return $q.all(addPromises).then(results => {
+                    // save service
+                    return service.updateServiceVersion($stateParams.orgId, $stateParams.svcId, $stateParams.versionId, $scope.updatedService).then(
+                        function () {
+                            // update upstreams
+                            toastService.createToast(TOAST_TYPES.SUCCESS,
+                                'Implementation settings for <b>' + $scope.serviceVersion.service.name + '</b> updated.',
+                                true);
+                            $scope.isDirty = false;
+                            if ($scope.tabStatus.hasImplementation) {
+                                $state.forceReload();
+                            } else {
+                                svcScreenModel.setHasImplementation(true);
+                                $state.go('^.definition');
+                            }
+                        });
+                });
+            }).catch(error => {
+                toastService.createErrorToast(error, 'Could not update service implementation settings.');
+            });
+
+
+
         };
+        $scope.selectScheme = selectScheme;
+        $scope.addTarget = addTarget;
+        $scope.removeTarget = removeTarget;
+
+
+        function addTarget() {
+            $scope.targets.push({ target: '', port: 8000 });
+        }
+
+        function removeTarget(target) {
+            if ($scope.targets.length > 1) { _.remove($scope.targets, target); }
+            else { toastService.warning('At least one target must be defined!'); }
+        }
+
+        function selectScheme(newScheme) {
+            $scope.updatedService.upstreamScheme = newScheme;
+        }
 
     }
 
@@ -389,9 +460,9 @@
                 } catch (err) {
                     $scope.isLoading = false;
                     toastService.warning("<b>Error parsing Swagger JSON!</b>" +
-                        "<br><span class='small'>Encountered an error while parsing the Swagger definition." +
-                        "<br>Please double-check your JSON syntax.</span>" +
-                        "<br><span class='small'><b>" + err + '</b></span>');
+                                         "<br><span class='small'>Encountered an error while parsing the Swagger definition." +
+                                         "<br>Please double-check your JSON syntax.</span>" +
+                                         "<br><span class='small'><b>" + err + '</b></span>');
                 }
             }, 500);
 
@@ -651,8 +722,8 @@
             }
             else if (origConfig.length === $scope.updatedService.visibility.length) {
                 return _.differenceWith(origConfig, $scope.updatedService.visibility, function (a, b) {
-                        return (a.code === b.code) && (a.show === b.show);
-                    }).length > 0;
+                    return (a.code === b.code) && (a.show === b.show);
+                }).length > 0;
             } else {
                 return true;
             }
