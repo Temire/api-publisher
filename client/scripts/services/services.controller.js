@@ -1008,13 +1008,6 @@
             });
         }
 
-        function getMinuteMetrics() {
-            $scope.fromDt = new Date();
-            $scope.fromDt.setDate($scope.fromDt.getDate() - 1); // Only get minute statistics for the last day.
-            $scope.toDt = new Date();
-            updateMetrics();
-        }
-
         $scope.$watch('fromDt', function (newValue, oldValue) {
             if (newValue !== oldValue) {
                 if (!$scope.isIntervalMinute) {
@@ -1028,18 +1021,6 @@
                 if (!$scope.isIntervalMinute) {
                     updateMetrics();
                 }
-            }
-        });
-
-        $scope.$watch('interval', function (newValue, oldValue) {
-            if (newValue !== oldValue) {
-                if ($scope.interval === 'minute') {
-                    $scope.isIntervalMinute = true;
-                    getMinuteMetrics();
-                } else {
-                    $scope.isIntervalMinute = false;
-                }
-                updateMetrics();
             }
         });
 
