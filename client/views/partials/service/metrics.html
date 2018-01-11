@@ -6,7 +6,7 @@
 </div>
 <div class="row">
     <div class="col-sm-12">
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-sm-offset-1">
             <div class="form-group">
                 <label class="control-label">From</label>
                 <div class="input-group">
@@ -19,7 +19,7 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
+        <div class="col-sm-4 col-sm-offset-2">
             <div class="form-group">
                 <label class="control-label">To</label>
                 <div class="input-group">
@@ -32,16 +32,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-sm-4">
-            <label for="interval">Interval</label>
-            <select class="form-control" id="interval" ng-model="interval">
-                <option value="month">Month</option>
-                <option value="week">Week</option>
-                <option value="day">Day</option>
-                <option value="hour">Hour</option>
-                <option value="minute">Minute</option>
-            </select>
-        </div>
+        <!--<div class="col-sm-4">-->
+        <!--<label for="interval">Interval</label>-->
+        <!--<select class="form-control" id="interval" ng-model="interval">-->
+        <!--<option value="month">Month</option>-->
+        <!--<option value="week">Week</option>-->
+        <!--<option value="day">Day</option>-->
+        <!--<option value="hour">Hour</option>-->
+        <!--<option value="minute">Minute</option>-->
+        <!--</select>-->
+        <!--</div>-->
         <div class="col-sm-12">
             <hr>
         </div>
@@ -56,7 +56,7 @@
     <div class="col-sm-12 mt10" ng-if="!metricsError">
         <div class="panel panel-primary">
             <div class="panel-heading metric-heading text-center">Response & Usage Statistics</div>
-            <div class="panel-body">
+            <div class="panel-body" style="position: relative">
                 <c3chart bindto-id="response" chart-data="responseHistogramData" chart-columns="responseHistogramColumns" chart-x="responseHistogramX">
                     <chart-axis>
                         <chart-axis-x axis-position="outer-center"
@@ -66,6 +66,15 @@
                         </chart-axis-x>
                     </chart-axis>
                 </c3chart>
+
+                <div class="metrics-loading-overlay" data-ng-if="loading">
+                    <div class="spinner">
+                        <i class="fa fa-spinner fa-pulse"></i>
+                    </div>
+                    <div class="loading-text">
+                        Loading
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -79,56 +88,57 @@
     </div>
 
     <div ng-if="!responseMetricsError">
-        <div class="row-centered col-sm-12">
-            <div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">
-                <div class="panel panel-default mini-box text-center panel-hovered">
-                    <div class="panel-body">
-                        <span class="text-bold">{{summary.requestsCount ? summary.requestsCount : 0}}</span>
-                    </div>
-                    <div class="panel-footer panel-footer-sm panel-footer-primary clearfix">
-                        <span class="left text-bold xsmall">Total requests</span>
-                        <span class="right fa fa-envelope xsmall"></span>
-                    </div>
-                </div>
-            </div>
 
-            <div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">
-                <div class="panel panel-default mini-box text-center panel-hovered">
-                    <div class="panel-body">
-                        <span class="text-bold">{{summary.requestsWrong ? summary.requestsWrong : 0}}</span>
-                    </div>
-                    <div class="panel-footer panel-footer-sm panel-footer-primary clearfix">
-                        <span class="left text-bold xsmall">Malformed req.</span>
-                        <span class="right fa fa-undo xsmall"></span>
-                    </div>
-                </div>
-            </div>
+        <div class="col-sm-7 mt30">
+            <!--<div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">-->
+            <!--<div class="panel panel-default mini-box text-center panel-hovered">-->
+            <!--<div class="panel-body">-->
+            <!--<span class="text-bold">{{summary.requestsCount ? summary.requestsCount : 0}}</span>-->
+            <!--</div>-->
+            <!--<div class="panel-footer panel-footer-sm panel-footer-primary clearfix">-->
+            <!--<span class="left text-bold xsmall">Total requests</span>-->
+            <!--<span class="right fa fa-envelope xsmall"></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
-            <div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">
-                <div class="panel panel-default mini-box text-center panel-hovered">
-                    <div class="panel-body">
-                        <span class="text-bold">{{summary.responseWrong ? summary.responseWrong : 0}}</span>
-                    </div>
-                    <div class="panel-footer panel-footer-sm panel-footer-primary clearfix">
-                        <span class="left text-bold xsmall">Service errors</span>
-                        <span class="right fa fa-exclamation-triangle xsmall"></span>
-                    </div>
-                </div>
-            </div>
+            <!--<div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">-->
+            <!--<div class="panel panel-default mini-box text-center panel-hovered">-->
+            <!--<div class="panel-body">-->
+            <!--<span class="text-bold">{{summary.requestsWrong ? summary.requestsWrong : 0}}</span>-->
+            <!--</div>-->
+            <!--<div class="panel-footer panel-footer-sm panel-footer-primary clearfix">-->
+            <!--<span class="left text-bold xsmall">Malformed req.</span>-->
+            <!--<span class="right fa fa-undo xsmall"></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
 
-            <div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">
+            <!--<div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">-->
+            <!--<div class="panel panel-default mini-box text-center panel-hovered">-->
+            <!--<div class="panel-body">-->
+            <!--<span class="text-bold">{{summary.responseWrong ? summary.responseWrong : 0}}</span>-->
+            <!--</div>-->
+            <!--<div class="panel-footer panel-footer-sm panel-footer-primary clearfix">-->
+            <!--<span class="left text-bold xsmall">Service errors</span>-->
+            <!--<span class="right fa fa-exclamation-triangle xsmall"></span>-->
+            <!--</div>-->
+            <!--</div>-->
+            <!--</div>-->
+
+            <div class="col-centered col-sm-6 col-md-6 col-lg-4 mt5">
                 <div class="panel panel-default mini-box text-center panel-hovered">
                     <div class="panel-body">
-                        <span class="text-bold">{{marketInfo.developers ? marketInfo.developers : 0}}</span>
+                        <span class="text-bold">{{marketInfo.distinctUsers ? marketInfo.distinctUsers : 0}}</span>
                     </div>
                     <div class="panel-footer panel-footer-sm panel-footer-primary clearfix">
-                        <span class="left text-bold xsmall">Developers</span>
+                        <span class="left text-bold xsmall">Distinct Users</span>
                         <span class="right fa fa-users xsmall"></span>
                     </div>
                 </div>
             </div>
 
-            <div class="col-centered col-sm-4 col-md-3 col-lg-2 mt5">
+            <div class="col-centered col-sm-6 col-md-6 col-lg-4 mt5">
                 <div class="panel panel-default mini-box text-center panel-hovered">
                     <div class="panel-body">
                         <span class="text-bold">{{serviceVersion.service.followers.length}}</span>
@@ -141,7 +151,7 @@
             </div>
         </div>
 
-        <div class="col-sm-12 mt10">
+        <div class="col-centered col-sm-5 mt10">
             <div class="panel text-center">
                 <div class="panel-body">
                     <c3chart bindto-id="gauge-plot1-chart" chart-data="uptime" chart-columns="gaugeColumns">
@@ -153,5 +163,8 @@
                 </div>
             </div>
         </div>
+
+
     </div>
+
 </div>
