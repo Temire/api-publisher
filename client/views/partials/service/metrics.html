@@ -56,7 +56,7 @@
     <div ng-if="!metricsError">
         <div class="col-sm-12 mt10" >
             <div class="panel panel-primary">
-                <div class="panel-heading metric-heading text-center">Latency Statistics</div>
+                <div class="panel-heading metric-heading text-center">Latency Statistics (ms)</div>
                 <div class="panel-body" style="position: relative">
                     <c3chart bindto-id="response" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsLatencies" chart-x="responseHistogramX">
                         <chart-axis>
@@ -82,7 +82,7 @@
 
         <div class="col-sm-12 mt10" >
             <div class="panel panel-primary">
-                <div class="panel-heading metric-heading text-center">Request Statistics</div>
+                <div class="panel-heading metric-heading text-center">Request Statistics (#)</div>
                 <div class="panel-body" style="position: relative">
                     <c3chart bindto-id="request" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsRequests" chart-x="responseHistogramX">
                         <chart-axis>
@@ -108,7 +108,7 @@
 
         <div class="col-sm-12 mt10" >
             <div class="panel panel-primary">
-                <div class="panel-heading metric-heading text-center">Data Size Statistics</div>
+                <div class="panel-heading metric-heading text-center">Data Size Statistics (bytes)</div>
                 <div class="panel-body" style="position: relative">
                     <c3chart bindto-id="data-size" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsSizes" chart-x="responseHistogramX">
                         <chart-axis>
@@ -134,7 +134,7 @@
 
         <div class="col-sm-12 mt10" >
             <div class="panel panel-primary">
-                <div class="panel-heading metric-heading text-center">User Statistics</div>
+                <div class="panel-heading metric-heading text-center">User Statistics (#)</div>
                 <div class="panel-body" style="position: relative">
                     <c3chart bindto-id="user" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsUsers" chart-x="responseHistogramX">
                         <chart-axis>
