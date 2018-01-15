@@ -20,7 +20,7 @@ default:
     host: "< t1g base uri >"
 
 test:
-  appName: "t1t-skeleton"
+  appName: "api-publisher"
   scheme: "http"
   port: 3001
   environment: "TEST"
