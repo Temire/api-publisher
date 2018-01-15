@@ -160,8 +160,12 @@
 
     </div>
 
-    <div class="col-sm-12 mt30 mb30" ng-if="metricsError && !responseMetricsError">
+    <div class="col-sm-12 mt30 mb30" ng-if="metricsError && !responseMetricsError && !metricsDisabled">
         <p class="text-center text-thin size-h4 text-muted">We could not retrieve the API metrics graph data at this time.</p>
+    </div>
+
+    <div class="col-sm-12 mt30 mb30" ng-if="metricsError && metricsDisabled">
+        <p class="text-center text-thin size-h4 text-muted">Metrics policy is not enabled for this API.</p>
     </div>
 
     <div class="col-sm-12 mt30" ng-if="!metricsError && responseMetricsError">

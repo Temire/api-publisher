@@ -1000,6 +1000,9 @@
                                  }, err => {
                                      if (err.data.type === "InvalidMetricCriteriaException") {
                                          toastService.warning('<b>Invalid date range!</b><br>From date must fall before To date.');
+                                     } else if (err.data.type === "NoMetricsEnabledException") {
+                                         $scope.metricsDisabled = true;
+                                         $scope.metricsError = true;
                                      } else {
                                          $scope.metricsError = true;
                                      }
