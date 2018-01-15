@@ -53,30 +53,111 @@
         <p class="text-center text-thin size-h4 text-muted">Please try again later.</p>
     </div>
 
-    <div class="col-sm-12 mt10" ng-if="!metricsError">
-        <div class="panel panel-primary">
-            <div class="panel-heading metric-heading text-center">Response & Usage Statistics</div>
-            <div class="panel-body" style="position: relative">
-                <c3chart bindto-id="response" chart-data="responseHistogramData" chart-columns="responseHistogramColumns" chart-x="responseHistogramX">
-                    <chart-axis>
-                        <chart-axis-x axis-position="outer-center"
-                                      axis-type="category">
-                            <chart-axis-x-tick tick-culling-max="10" tick-culling="true" tick-fit="false">
-                            </chart-axis-x-tick>
-                        </chart-axis-x>
-                    </chart-axis>
-                </c3chart>
+    <div ng-if="!metricsError">
+        <div class="col-sm-12 mt10" >
+            <div class="panel panel-primary">
+                <div class="panel-heading metric-heading text-center">Latency Statistics</div>
+                <div class="panel-body" style="position: relative">
+                    <c3chart bindto-id="response" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsLatencies" chart-x="responseHistogramX">
+                        <chart-axis>
+                            <chart-axis-x axis-position="outer-center"
+                                          axis-type="category">
+                                <chart-axis-x-tick tick-culling-max="10" tick-culling="true" tick-fit="false">
+                                </chart-axis-x-tick>
+                            </chart-axis-x>
+                        </chart-axis>
+                    </c3chart>
 
-                <div class="metrics-loading-overlay" data-ng-if="loading">
-                    <div class="spinner">
-                        <i class="fa fa-spinner fa-pulse"></i>
-                    </div>
-                    <div class="loading-text">
-                        Loading
+                    <div class="metrics-loading-overlay" data-ng-if="loading">
+                        <div class="spinner">
+                            <i class="fa fa-spinner fa-pulse"></i>
+                        </div>
+                        <div class="loading-text">
+                            Loading
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
+
+        <div class="col-sm-12 mt10" >
+            <div class="panel panel-primary">
+                <div class="panel-heading metric-heading text-center">Request Statistics</div>
+                <div class="panel-body" style="position: relative">
+                    <c3chart bindto-id="request" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsRequests" chart-x="responseHistogramX">
+                        <chart-axis>
+                            <chart-axis-x axis-position="outer-center"
+                                          axis-type="category">
+                                <chart-axis-x-tick tick-culling-max="10" tick-culling="true" tick-fit="false">
+                                </chart-axis-x-tick>
+                            </chart-axis-x>
+                        </chart-axis>
+                    </c3chart>
+
+                    <div class="metrics-loading-overlay" data-ng-if="loading">
+                        <div class="spinner">
+                            <i class="fa fa-spinner fa-pulse"></i>
+                        </div>
+                        <div class="loading-text">
+                            Loading
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 mt10" >
+            <div class="panel panel-primary">
+                <div class="panel-heading metric-heading text-center">Data Size Statistics</div>
+                <div class="panel-body" style="position: relative">
+                    <c3chart bindto-id="data-size" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsSizes" chart-x="responseHistogramX">
+                        <chart-axis>
+                            <chart-axis-x axis-position="outer-center"
+                                          axis-type="category">
+                                <chart-axis-x-tick tick-culling-max="10" tick-culling="true" tick-fit="false">
+                                </chart-axis-x-tick>
+                            </chart-axis-x>
+                        </chart-axis>
+                    </c3chart>
+
+                    <div class="metrics-loading-overlay" data-ng-if="loading">
+                        <div class="spinner">
+                            <i class="fa fa-spinner fa-pulse"></i>
+                        </div>
+                        <div class="loading-text">
+                            Loading
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 mt10" >
+            <div class="panel panel-primary">
+                <div class="panel-heading metric-heading text-center">User Statistics</div>
+                <div class="panel-body" style="position: relative">
+                    <c3chart bindto-id="user" chart-data="responseHistogramData" chart-columns="responseHistogramColumnsUsers" chart-x="responseHistogramX">
+                        <chart-axis>
+                            <chart-axis-x axis-position="outer-center"
+                                          axis-type="category">
+                                <chart-axis-x-tick tick-culling-max="10" tick-culling="true" tick-fit="false">
+                                </chart-axis-x-tick>
+                            </chart-axis-x>
+                        </chart-axis>
+                    </c3chart>
+
+                    <div class="metrics-loading-overlay" data-ng-if="loading">
+                        <div class="spinner">
+                            <i class="fa fa-spinner fa-pulse"></i>
+                        </div>
+                        <div class="loading-text">
+                            Loading
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 
     <div class="col-sm-12 mt30 mb30" ng-if="metricsError && !responseMetricsError">
@@ -151,7 +232,7 @@
             </div>
         </div>
 
-        <div class="col-centered col-sm-5 mt10">
+        <div class="col-centered col-sm-5 mt10" data-ng-if="marketInfo && marketInfo.uptime">
             <div class="panel text-center">
                 <div class="panel-body">
                     <c3chart bindto-id="gauge-plot1-chart" chart-data="uptime" chart-columns="gaugeColumns">

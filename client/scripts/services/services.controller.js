@@ -1054,7 +1054,7 @@
                         let dataPoint = {
                             point: point[0],
                             'x': tempDate,
-                            displayDate: tempDate.getDate() + '/' + tempDate.getMonth() + 1,
+                            displayDate: moment(tempDate).format('DD-MM-YYYY, hh:mm:ss'),
                             request_count: 0,
                             request_200: 0,
                             request_400: 0,
@@ -1095,17 +1095,25 @@
             });
         }
 
-        $scope.responseHistogramColumns = [
+        $scope.responseHistogramColumnsLatencies = [
             {'id': 'latency_kong', 'name': 'Kong latency', 'type': 'line', 'color': '#071F82'},
-            {'id': 'latency_upstream', 'name': 'Upstream latency', 'type': 'line', 'color': '#104752'},
+            {'id': 'latency_upstream', 'name': 'Upstream latency', 'type': 'line', 'color': '#104752'}
+        ];
+        $scope.responseHistogramColumnsRequests = [
             {'id': 'request_count', 'name': 'Requests', 'type': 'line', 'color': '#0BA396'},
             {'id': 'request_200', 'name': 'Success (2XX)', 'type': 'line', 'color': '#ADDB4D'},
             {'id': 'request_400', 'name': 'Client Error (4XX)', 'type': 'line', 'color': '#FDBE28'},
             {'id': 'request_500', 'name': 'Server Error (5XX)', 'type': 'line', 'color': '#F5331B'},
+        ];
+        $scope.responseHistogramColumnsSizes = [
             {'id': 'request_size', 'name': 'Request Size', 'type': 'line', 'color': '#D191FF'},
-            {'id': 'response_size', 'name': 'Response Size', 'type': 'line', 'color': '#ECD1FF'},
+            {'id': 'response_size', 'name': 'Response Size', 'type': 'line', 'color': '#ECD1FF'}
+        ];
+        $scope.responseHistogramColumnsUsers = [
             {'id': 'user_uniques', 'name': 'Unique users', 'type': 'line', 'color': '#5D4B51'}
         ];
+
+
         $scope.responseHistogramX = {'id': 'displayDate'};
 
         $scope.gaugeColumns = [{'id': 'uptime', 'name': 'Uptime %', 'type': 'gauge', 'color': 'green'}];
