@@ -8,14 +8,14 @@
 
         <div class="form-group">
             <div class="col-md-7">
-                <div class="col-md-8 col-sm-3 col-xs-7">
+                <div class="col-md-8 col-sm-8 col-xs-12">
                     <label class="control-label text-primary">Service Name</label>
                     <input type="text" name="serviceName" class="form-control" placeholder="Enter service name..." ng-model="ctrl.service.name" required ng-pattern="regex.SERVICE_NAME" validate-on-timeout>
                     <p class="text-danger xsmall" ng-show="serviceForm.serviceName.$error.required && serviceForm.serviceName.$timedout" ng-if="serviceForm.serviceName.$touched">Service name is required.</p>
                     <p class="text-danger xsmall" ng-show="serviceForm.serviceName.$error.pattern && serviceForm.serviceName.$timedout">Allowed characters: A-z (both upper and lowercase), numbers, dashes, underscores and single spaces. All other characters will be rejected. Leading and trailing spaces will be trimmed.</p>
                     <p class="text-muted xsmall">Human-readable name of the service</p>
                 </div>
-                <div class="col-md-4 col-sm-3 col-xs-5">
+                <div class="col-md-4 col-sm-4 col-xs-6">
                     <label class="control-label text-primary">Initial Version</label>
                     <div class="input-group">
                         <span class="input-group-addon input-version-addon">v</span>
@@ -25,7 +25,7 @@
                     <p class="text-danger xsmall" ng-show="serviceForm.version.$error.pattern && serviceForm.version.$timedout">Only numeric characters are allowed.</p>
                     <p class="text-muted xsmall">Version the service will start out as. Usually v1 for new services</p>
                 </div>
-                <div class="col-md-8 col-sm-12 col-xs-9 mt20" data-ng-init="ctrl.service.basepath = [{ val: ''}]">
+                <div class="col-md-8 col-sm-12 col-xs-12 mt20" data-ng-init="ctrl.service.basepath = [{ val: ''}]">
                     <label class="control-label text-primary">Service Identifier</label>
                     <span style="margin-left: 20px;" class="btn btn-primary btn-xs" data-ng-click="addPath()">Add</span>
                     <div data-ng-repeat="path in ctrl.service.basepath">
@@ -44,7 +44,7 @@
                     </p>
 
                 </div>
-                <div class="col-md-4 mt20" ng-if="branding.length > 0">
+                <div class="col-sm-12 col-xs-12 col-md-4 mt20" ng-if="branding.length > 0">
                     <label class="control-label text-primary">Service Branding</label>
                     <div class="input-group-btn">
                         <div class="dropdown" uib-dropdown>

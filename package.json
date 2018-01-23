@@ -74,8 +74,8 @@
     "postinstall": "npm run bower",
     "grunt": "./node_modules/grunt-cli/bin/grunt build",
     "deploy": "npm install && npm run bower && npm run grunt",
-    "localTest": "NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js' && ./node_modules/karma-cli/bin/karma start --single-run",
-    "test": "npm run grunt && NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js' --reporter mocha-teamcity-reporter && ./node_modules/karma-cli/bin/karma start --reporters teamcity --single-run --colors false"
+    "localTest": "NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js'",
+    "test": "npm run grunt && NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js' --reporter mocha-teamcity-reporter"
   },
   "dependencies": {
     "async": "^2.1.4",

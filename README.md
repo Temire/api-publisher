@@ -26,18 +26,13 @@ We are working on the Trust1Gateway documentation:
 
 ## Running development server
 
-For development purposes you can run `grunt serve` to start a livereload server with configuration for API Publisher, or run `grunt serve:mkt` to start a server with a profile for API Store.
-Both of these will run against the online dev backend.
-
-Run `grunt serveLocal` for a local docker machine, or a local API Engine.
-
+For development purposes, make sure your `config.yaml` file is up to date and the environment is set to "local" or "development".
+You can then run `nodemon app.js` to start a nodemon process which watches for changes in the BFF (this assumes you have nodemon installed);
+ Then run `grunt serve` to start a livereload server which watches for changes in the client.
 
 ## Building for deployment
 
-There are build profiles available for many different environments, these can be found in the `Gruntfile.js` file.
-Find the build profiles you want to use (for example `pub` for the publisher in dev), and then run `grunt <buildprofile>`, so for our example that would be `grunt pub`.
-
-Once the build process completes, you will find the files to be deployed in the `dist` folder, as well as a .zip file containing the deployable.
+Please see the [deployment guide](https://t1t.gitbooks.io/trust1gateway-architecture-deployment/content/deployment/t1g-publisher.html):.
 
 
 ## Testing
