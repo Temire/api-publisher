@@ -44,10 +44,5 @@
 </div>
 
 <div class="page page-ui-notifications page-user">
-  <div class="toast toast-bottomRight">
-    <uib-alert ng-repeat="toast in toasts" type="{{toast.type}}" close="closeAlert($index)" class="toast-fade">
-      <div ng-bind-html="toast.msg">Test Toast</div>
-    </uib-alert>
-  </div>
   <div ui-view></div>
 </div>
