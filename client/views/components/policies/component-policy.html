@@ -1,11 +1,11 @@
-<div class="policy" uib-popover-html="$ctrl.policy.popover" popover-animation="true" popover-placement="top" popover-trigger="'mouseenter'">
+<div class="policy" uib-popover-html="$ctrl.policy.details.popover" popover-animation="true" popover-placement="top" popover-trigger="'mouseenter'">
     <div id="content">
         <div class="policy-header">
             <h5>{{$ctrl.policy.name}}</h5>
-            <img class="policy-icon" ng-attr-src="{{$ctrl.policy.iconPath}}">
+            <img class="policy-icon" data-ng-attr-src="data:image/png;base64,{{$ctrl.policy.details.definition.base64Logo}}">
         </div>
         <div class="policy-body">
-            <span class="text-muted text-light small">{{$ctrl.policy.description}}</span>
+            <span class="text-muted text-light small">{{$ctrl.policy.details.definition.description}}</span>
             <!--<span>{{$ctrl.policy.policyDefinitionId}}</span>-->
         </div>
     </div>
