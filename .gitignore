@@ -10,7 +10,6 @@ app.config.js
 
 # Generated files
 dist
-bower_components
 node_modules
 .local
 main.css

@@ -26,6 +26,10 @@ We are working on the Trust1Gateway documentation:
 
 ## Running development server
 
+### Installing dependencies
+Run `yarn install` to install all dependencies. Use of Yarn is recommended, but `npm install` will work too if you don't have Yarn installed.
+
+### Running
 For development purposes, make sure your `config.yaml` file is up to date and the environment is set to "local" or "development".
 You can then run `nodemon app.js` to start a nodemon process which watches for changes in the BFF (this assumes you have nodemon installed);
  Then run `grunt serve` to start a livereload server which watches for changes in the client.

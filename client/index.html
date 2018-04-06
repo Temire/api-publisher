@@ -38,24 +38,22 @@
   <meta name="msapplication-square310x310logo" content="images/mstile-310x310.png" />
 
   <!-- build:css styles/vendor.min.css -->
-  <!-- bower:css -->
-  <link rel="stylesheet" href="../bower_components/angular-loading-bar/build/loading-bar.css" />
-  <link rel="stylesheet" href="../bower_components/angular-material/angular-material.css" />
-  <link rel="stylesheet" href="../bower_components/c3/c3.css" />
-  <link rel="stylesheet" href="../bower_components/ng-tags-input/ng-tags-input.min.css" />
-  <link rel="stylesheet" href="../bower_components/perfect-scrollbar/css/perfect-scrollbar.css" />
-  <link rel="stylesheet" href="../bower_components/textAngular/dist/textAngular.css" />
-  <link rel="stylesheet" href="../bower_components/ladda/dist/ladda.min.css" />
-  <link rel="stylesheet" href="../bower_components/angular-ui-switch/angular-ui-switch.css" />
-  <link rel="stylesheet" href="../bower_components/Trip.js/dist/trip.css" />
-  <!-- endbower -->
+  <link rel="stylesheet" href="../node_modules/angular-loading-bar/build/loading-bar.css" />
+  <link rel="stylesheet" href="../node_modules/angular-material/angular-material.css" />
+  <link rel="stylesheet" href="../node_modules/c3/c3.css" />
+  <link rel="stylesheet" href="../node_modules/ng-tags-input/build/ng-tags-input.min.css" />
+  <link rel="stylesheet" href="../node_modules/perfect-scrollbar/dist/css/perfect-scrollbar.css" />
+  <link rel="stylesheet" href="../node_modules/textangular/dist/textAngular.css" />
+  <link rel="stylesheet" href="../node_modules/ladda/dist/ladda.min.css" />
+  <link rel="stylesheet" href="../node_modules/angular-ui-switch/angular-ui-switch.css" />
+  <link rel="stylesheet" href="../node_modules/trip.js/dist/trip.css" />
   <!-- endbuild -->
 
   <!-- fonts -->
   <link href='//fonts.googleapis.com/css?family=Roboto:400,500,700,300' rel='stylesheet' type='text/css'>
   <!-- build:css styles/fonts.min.css -->
-  <link rel="stylesheet" href="../bower_components/Ionicons/css/ionicons.css">
-  <link rel="stylesheet" href="../bower_components/font-awesome/css/font-awesome.css">
+  <link rel="stylesheet" href="../node_modules/ionicons/css/ionicons.css">
+  <link rel="stylesheet" href="../node_modules/font-awesome/css/font-awesome.css">
   <!-- endbuild -->
 
   <!-- build:css styles/app.min.css -->
@@ -71,65 +69,63 @@
 <div class="root-wrapper" ui-view></div>
 
 <!-- build:js scripts/vendors.js -->
-<!-- bower:js -->
-<script src="../bower_components/jquery/dist/jquery.js"></script>
-<script src="../bower_components/angular/angular.js"></script>
-<script src="../bower_components/angular-animate/angular-animate.js"></script>
-<script src="../bower_components/angular-aria/angular-aria.js"></script>
-<script src="../bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-<script src="../bower_components/angular-clipboard/angular-clipboard.js"></script>
-<script src="../bower_components/angular-loading-bar/build/loading-bar.js"></script>
-<script src="../bower_components/angular-messages/angular-messages.js"></script>
-<script src="../bower_components/angular-material/angular-material.js"></script>
-<script src="../bower_components/angular-media-queries/match-media.js"></script>
-<script src="../bower_components/angular-translate/angular-translate.js"></script>
-<script src="../bower_components/angular-relative-date/angular-relative-date.js"></script>
-<script src="../bower_components/angular-resource/angular-resource.js"></script>
-<script src="../bower_components/angular-sanitize/angular-sanitize.js"></script>
-<script src="../bower_components/tv4/tv4.js"></script>
-<script src="../bower_components/objectpath/lib/ObjectPath.js"></script>
-<script src="../bower_components/angular-schema-form/dist/schema-form.js"></script>
-<script src="../bower_components/angular-schema-form/dist/bootstrap-decorator.js"></script>
-<script src="../bower_components/angular-ui-router/release/angular-ui-router.js"></script>
-<script src="../bower_components/underscore/underscore.js"></script>
-<script src="../bower_components/backbone/backbone.js"></script>
-<script src="../bower_components/d3/d3.js"></script>
-<script src="../bower_components/c3/c3.js"></script>
-<script src="../bower_components/c3-angular/c3-angular.min.js"></script>
-<script src="../bower_components/handlebars/handlebars.js"></script>
-<script src="../bower_components/marked/lib/marked.js"></script>
-<script src="../bower_components/flow.js/dist/flow.js"></script>
-<script src="../bower_components/ng-flow/dist/ng-flow.js"></script>
-<script src="../bower_components/ng-tags-input/ng-tags-input.min.js"></script>
-<script src="../bower_components/ngstorage/ngStorage.js"></script>
-<script src="../bower_components/perfect-scrollbar/js/perfect-scrollbar.jquery.js"></script>
-<script src="../bower_components/perfect-scrollbar/js/perfect-scrollbar.js"></script>
-<script src="../bower_components/rangy/rangy-core.js"></script>
-<script src="../bower_components/rangy/rangy-classapplier.js"></script>
-<script src="../bower_components/rangy/rangy-highlighter.js"></script>
-<script src="../bower_components/rangy/rangy-selectionsaverestore.js"></script>
-<script src="../bower_components/rangy/rangy-serializer.js"></script>
-<script src="../bower_components/rangy/rangy-textrange.js"></script>
-<script src="../bower_components/textAngular/dist/textAngular.js"></script>
-<script src="../bower_components/textAngular/dist/textAngular-sanitize.js"></script>
-<script src="../bower_components/textAngular/dist/textAngularSetup.js"></script>
-<script src="../bower_components/angular-jwt/dist/angular-jwt.js"></script>
-<script src="../bower_components/spin.js/spin.js"></script>
-<script src="../bower_components/ladda/dist/ladda.min.js"></script>
-<script src="../bower_components/angular-ladda/dist/angular-ladda.min.js"></script>
-<script src="../bower_components/angular-ui-switch/angular-ui-switch.js"></script>
-<script src="../bower_components/showdown/src/showdown.js"></script>
-<script src="../bower_components/angular-markdown-directive/markdown.js"></script>
-<script src="../bower_components/lodash/lodash.js"></script>
-<script src="../bower_components/Trip.js/dist/trip.js"></script>
-<script src="../bower_components/angular-smart-table/dist/smart-table.js"></script>
-<script src="../bower_components/blob-polyfill/Blob.js"></script>
-<script src="../bower_components/file-saver.js/FileSaver.js"></script>
-<script src="../bower_components/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
-<script src="../bower_components/keycloak/dist/keycloak.js"></script> <!-- TODO load script from keycloak server -->
-<script src="../bower_components/moment/moment.js"></script>
-<!-- endbower -->
-<script src="../bower_components/highlight/src/highlight.js"></script>
+<script src="../node_modules/jquery/dist/jquery.js"></script>
+<script src="../node_modules/angular/angular.js"></script>
+<script src="../node_modules/angular-animate/angular-animate.js"></script>
+<script src="../node_modules/angular-aria/angular-aria.js"></script>
+<script src="../node_modules/angular-ui-bootstrap/dist/ui-bootstrap-tpls.js"></script>
+<script src="../node_modules/angular-clipboard/angular-clipboard.js"></script>
+<script src="../node_modules/angular-loading-bar/build/loading-bar.js"></script>
+<script src="../node_modules/angular-messages/angular-messages.js"></script>
+<script src="../node_modules/angular-material/angular-material.js"></script>
+<script src="../node_modules/angular-media-queries/match-media.js"></script>
+<script src="../node_modules/angular-translate/dist/angular-translate.js"></script>
+<script src="../node_modules/angular-relative-date/angular-relative-date.js"></script>
+<script src="../node_modules/angular-resource/angular-resource.js"></script>
+<script src="../node_modules/angular-sanitize/angular-sanitize.js"></script>
+<script src="../node_modules/tv4/tv4.js"></script>
+<script src="../node_modules/objectpath/lib/ObjectPath.js"></script>
+<script src="../node_modules/angular-schema-form/dist/schema-form.js"></script>
+<script src="../node_modules/angular-schema-form/dist/bootstrap-decorator.js"></script>
+<script src="../node_modules/angular-ui-router/release/angular-ui-router.js"></script>
+<script src="../node_modules/underscore/underscore.js"></script>
+<script src="../node_modules/backbone/backbone.js"></script>
+<script src="../node_modules/d3/d3.js"></script>
+<script src="../node_modules/c3/c3.js"></script>
+<script src="../node_modules/c3-angular/c3-angular.min.js"></script>
+<script src="../node_modules/handlebars/dist/handlebars.js"></script>
+<script src="../node_modules/marked/lib/marked.js"></script>
+<script src="../node_modules/@flowjs/flow.js/dist/flow.js"></script>
+<script src="../node_modules/@flowjs/ng-flow/dist/ng-flow.js"></script>
+<script src="../node_modules/ng-tags-input/build/ng-tags-input.min.js"></script>
+<script src="../node_modules/ngstorage/ngStorage.js"></script>
+<script src="../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.jquery.js"></script>
+<script src="../node_modules/perfect-scrollbar/dist/js/perfect-scrollbar.js"></script>
+<script src="../node_modules/rangy/lib/rangy-core.js"></script>
+<script src="../node_modules/rangy/lib/rangy-classapplier.js"></script>
+<script src="../node_modules/rangy/lib/rangy-highlighter.js"></script>
+<script src="../node_modules/rangy/lib/rangy-selectionsaverestore.js"></script>
+<script src="../node_modules/rangy/lib/rangy-serializer.js"></script>
+<script src="../node_modules/rangy/lib/rangy-textrange.js"></script>
+<script src="../node_modules/textangular/dist/textAngular.js"></script>
+<script src="../node_modules/textangular/dist/textAngular-sanitize.js"></script>
+<script src="../node_modules/textangular/dist/textAngularSetup.js"></script>
+<script src="../node_modules/angular-jwt/dist/angular-jwt.js"></script>
+<script src="../node_modules/spin.js/spin.js"></script>
+<script src="../node_modules/ladda/dist/ladda.min.js"></script>
+<script src="../node_modules/angular-ladda/dist/angular-ladda.min.js"></script>
+<script src="../node_modules/angular-ui-switch/angular-ui-switch.js"></script>
+<script src="../node_modules/showdown/src/showdown.js"></script>
+<script src="../node_modules/angular-markdown-directive/markdown.js"></script>
+<script src="../node_modules/lodash/lodash.js"></script>
+<script src="../node_modules/trip.js/dist/trip.js"></script>
+<script src="../node_modules/angular-smart-table/dist/smart-table.js"></script>
+<script src="../node_modules/blob-polyfill/Blob.js"></script>
+<script src="../node_modules/file-saver/FileSaver.js"></script>
+<script src="../node_modules/angular-file-saver/dist/angular-file-saver.bundle.js"></script>
+<script src="../node_modules/keycloak-js/dist/keycloak.js"></script> <!-- TODO load script from keycloak server -->
+<script src="../node_modules/moment/moment.js"></script>
+<script src="../node_modules/highlight.js/lib/highlight.js"></script>
 <!-- endbuild -->
 
 <!--build:js scripts/swagger.js -->

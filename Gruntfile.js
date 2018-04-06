@@ -70,13 +70,13 @@ module.exports = function(grunt) {
             },
             fa : {
                 expand: true,
-                cwd: "bower_components/font-awesome/fonts",
+                cwd: "node_modules/font-awesome/fonts",
                 dest: "<%= dir.dist %>/fonts",
                 src: ["**/*"]
             },
             ion : {
                 expand: true,
-                cwd: "bower_components/Ionicons/fonts",
+                cwd: "node_modules/ionicons/fonts",
                 dest: "<%= dir.dist %>/fonts",
                 src: ["**/*"]
             },
