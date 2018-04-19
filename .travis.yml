@@ -11,3 +11,4 @@ script:
   - npm run grunt
   - NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js'
   - npm run deploy
+
