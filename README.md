@@ -1,4 +1,4 @@
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/eef39aba9dd642b38630d048bd2ef628)](https://www.codacy.com/app/Trust1Team/api-publisher?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Trust1Team/api-publisher&amp;utm_campaign=Badge_Grade)
+[![Build Status](https://travis-ci.org/Trust1Team/api-publisher.svg?branch=develop)](https://travis-ci.org/Trust1Team/api-publisher) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/eef39aba9dd642b38630d048bd2ef628)](https://www.codacy.com/app/Trust1Team/api-publisher?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=Trust1Team/api-publisher&amp;utm_campaign=Badge_Grade)
 
 Trust1Gateway - Publisher: API Publisher for the Trust1Gateway
 ==============================================================
