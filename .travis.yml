@@ -1,9 +1,13 @@
-sudo: false
 language: node_js
 node_js:
-  - 'iojs'
-  - '0.12'
-  - '0.10'
-before_script:
-  - 'npm install -g bower grunt-cli'
-  - 'bower install'
+  - "6"
+before_install:
+  - echo "registry=https://repo.t1t.be/repository/npm-group\n_auth=\${NPM_TOKEN}\nemail=development@trust1team.com\nalways-auth=true" > .npmrc
+install:
+  - yarn install
+script:
+  - cp ./config/config.example.yml ./config/config.yml
+  - cp ./config/keycloak.example.json ./config/keycloak.json
+  - npm run grunt
+  - NODE_ENV=test ./node_modules/.bin/_mocha 'server/**/*.spec.js'
+  - npm run deploy
